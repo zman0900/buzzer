@@ -14,16 +14,26 @@ public class LoginActivity extends Activity implements OnClickListener {
         setContentView(R.layout.login);
 		Log.d("Buzzer","Showing login view");
 		
-		View btnCancel=(Button)findViewById(R.id.cancel_button);
+		View btnLogin = (Button)findViewById(R.id.loginButton);
+		btnLogin.setOnClickListener(this);
+		View btnCancel = (Button)findViewById(R.id.cancelButton);
         btnCancel.setOnClickListener(this);
+        View btnRegister = (Button)findViewById(R.id.registerButton);
+        btnRegister.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-  		case R.id.cancel_button:
+  		case R.id.cancelButton:
 	    	finish();
     		break;
+  		case R.id.loginButton:
+  			Log.d("Buzzer","Perform login");
+  			break;
+  		case R.id.registerButton:
+  			Log.d("Buzzer","Show register view");
+  			break;
 		}
 	}
 }
