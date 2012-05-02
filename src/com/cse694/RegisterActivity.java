@@ -1,22 +1,19 @@
 package com.cse694;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class RegisterActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-		Log.d("Buzzer","Showing login view");
+        setContentView(R.layout.register);
+		Log.d("Buzzer","Showing register view");
 		
-		View btnLogin = (Button)findViewById(R.id.loginButton);
-		btnLogin.setOnClickListener(this);
 		View btnCancel = (Button)findViewById(R.id.cancelButton);
         btnCancel.setOnClickListener(this);
         View btnRegister = (Button)findViewById(R.id.registerButton);
@@ -29,14 +26,10 @@ public class LoginActivity extends Activity implements OnClickListener {
   		case R.id.cancelButton:
 	    	finish();
     		break;
-  		case R.id.loginButton:
-  			Log.d("Buzzer","Perform login");
-  			// login
-  			finish();
-  			break;
   		case R.id.registerButton:
-  			Log.d("Buzzer","Show register view");
-  			startActivity(new Intent("com.cse694.RegisterActivity"));
+  			Log.d("Buzzer","Perform register");
+  			// Register
+  			finish();
   			break;
 		}
 	}
