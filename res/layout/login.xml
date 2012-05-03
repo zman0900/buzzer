@@ -31,18 +31,19 @@
         android:layout_marginTop="20dp" >
 
         <TextView
-            android:id="@+id/usernameLabel"
+            android:id="@+id/emailLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/username"
+            android:layout_alignBaseline="@+id/email"
             android:layout_margin="5dp"
-            android:text="@string/username" />
+            android:text="@string/email" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/usernameLabel"
+            android:layout_alignLeft="@+id/password"
+            android:layout_toRightOf="@id/emailLabel"
             android:ems="10"
             android:inputType="text" >
 
@@ -55,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/password"
-            android:layout_below="@id/usernameLabel"
+            android:layout_below="@id/emailLabel"
             android:layout_margin="5dp"
             android:text="@string/password" />
 
@@ -63,8 +64,7 @@
             android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/username"
-            android:layout_below="@id/username"
+            android:layout_below="@id/email"
             android:layout_toRightOf="@id/passwordLabel"
             android:ems="10"
             android:inputType="textPassword" >

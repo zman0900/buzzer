@@ -1,14 +1,21 @@
 package com.cse694;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnClickListener {
+	
+	public static final String LOGIN_STORE = "LoginStore";
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,13 +38,45 @@ public class LoginActivity extends Activity implements OnClickListener {
     		break;
   		case R.id.loginButton:
   			Log.d("Buzzer","Perform login");
-  			// login
-  			finish();
+  			checkLoginInfo();
   			break;
   		case R.id.registerButton:
   			Log.d("Buzzer","Show register view");
-  			startActivity(new Intent("com.cse694.RegisterActivity"));
+  			startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
   			break;
 		}
+	}
+	
+	private void checkLoginInfo() {
+		LoginDatabaseHelper db = new LoginDatabaseHelper(getApplicationContext());
+		EditText email = (EditText)findViewById(R.id.email);
+		EditText password = (EditText)findViewById(R.id.password);
+		if (db.checkUser(email.getText().toString(), password.getText().toString())) {
+			// Valid login
+			SharedPreferences settings = getSharedPreferences(LOGIN_STORE, MODE_PRIVATE);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString("email", email.getText().toString());
+			editor.putString("password", password.getText().toString());
+			editor.putBoolean("loggedin", true);
+			editor.commit();
+			
+			finish();
+			startActivity(new Intent(LoginActivity.this,BuzzerActivity.class));
+		} else {
+			Toast.makeText(this, "Login not valid!", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	public static Boolean isLoggedIn(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(LOGIN_STORE, MODE_PRIVATE);
+		Log.i("Buzzer",settings.getAll().toString());
+        return settings.getBoolean("loggedin", false);
+	}
+	
+	public static void logout(Context context) {
+		SharedPreferences settings = context.getSharedPreferences(LOGIN_STORE, MODE_PRIVATE);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.clear();
+		editor.commit();
 	}
 }
