@@ -4,20 +4,20 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/partyNameLabel"
+        android:id="@+id/registerPartyNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/partyName"
+        android:layout_alignBaseline="@+id/registerPartyName"
         android:layout_margin="5dp"
         android:text="@string/partyName" />
 
     <EditText
-        android:id="@+id/partyName"
+        android:id="@+id/registerPartyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/confirmPassword"
+        android:layout_alignLeft="@+id/registerConfirmPassword"
         android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/partyNameLabel"
+        android:layout_toRightOf="@id/registerPartyNameLabel"
         android:ems="10"
         android:inputType="textCapWords" >
 
@@ -25,66 +25,66 @@
     </EditText>
 
     <TextView
-        android:id="@+id/emailLabel"
+        android:id="@+id/registerEmailLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/email"
-        android:layout_below="@id/partyNameLabel"
+        android:layout_alignBaseline="@+id/registerEmail"
+        android:layout_below="@id/registerPartyNameLabel"
         android:layout_margin="5dp"
         android:text="@string/email" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/registerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/confirmPassword"
-        android:layout_below="@id/partyName"
-        android:layout_toRightOf="@id/emailLabel"
+        android:layout_alignLeft="@+id/registerConfirmPassword"
+        android:layout_below="@id/registerPartyName"
+        android:layout_toRightOf="@id/registerEmailLabel"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/passwordLabel"
+        android:id="@+id/registerPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/password"
-        android:layout_below="@id/emailLabel"
+        android:layout_alignBaseline="@+id/registerPassword"
+        android:layout_below="@id/registerEmailLabel"
         android:layout_margin="5dp"
         android:text="@string/password" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/registerPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/confirmPassword"
-        android:layout_below="@id/email"
-        android:layout_toRightOf="@id/passwordLabel"
+        android:layout_alignLeft="@+id/registerConfirmPassword"
+        android:layout_below="@id/registerEmail"
+        android:layout_toRightOf="@id/registerPasswordLabel"
         android:ems="10"
         android:inputType="textPassword" />
 
     <TextView
-        android:id="@+id/confirmPasswordLabel"
+        android:id="@+id/registerConfirmPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/confirmPassword"
-        android:layout_below="@id/passwordLabel"
+        android:layout_alignBaseline="@+id/registerConfirmPassword"
+        android:layout_below="@id/registerPasswordLabel"
         android:layout_margin="5dp"
         android:text="@string/confirmPassword" />
 
     <EditText
-        android:id="@+id/confirmPassword"
+        android:id="@+id/registerConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/password"
-        android:layout_toRightOf="@id/confirmPasswordLabel"
+        android:layout_below="@id/registerPassword"
+        android:layout_toRightOf="@id/registerConfirmPasswordLabel"
         android:ems="10"
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/registerCancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/confirmPassword"
+        android:layout_below="@id/registerConfirmPassword"
         android:layout_marginTop="20dp"
         android:text="@string/cancel"
         android:width="75dp" />
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/confirmPassword"
+        android:layout_below="@id/registerConfirmPassword"
         android:layout_marginTop="20dp"
         android:text="@string/register"
         android:width="200dp" />

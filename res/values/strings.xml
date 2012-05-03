@@ -11,5 +11,6 @@
     <string name="partyName">Party Name</string>
     <string name="email">Email</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="logout">Logout</string>
 
 </resources>
