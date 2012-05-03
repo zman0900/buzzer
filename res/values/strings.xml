@@ -11,5 +11,11 @@
     <string name="partyName">Party Name</string>
     <string name="email">Email</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="reg_rest">Register your Restaurant!</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone Number</string>
+    <string name="rest_name">Restraurant Name</string>
+    <string name="register_restaurant">Register Your Restaurant!</string>
 
 </resources>
