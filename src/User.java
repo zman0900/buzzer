@@ -17,10 +17,10 @@ public class User {
 
 	public boolean check_in(Restaurant rest) {
 		this.checked_in_at = rest;
-		Notification seat_alert = new Notification(this,party_name
+		/*Notification seat_alert = new Notification(this,party_name
 				+ " is requesting a seat at your restaurant, "
 				+ rest.toString ());
-		seat_alert.send ();
+		seat_alert.send ();*/
 		return true;
 	}
 
