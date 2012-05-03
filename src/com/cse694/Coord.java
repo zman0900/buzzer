@@ -1,3 +1,4 @@
+package com.cse694;
 
 public class Coord {
 	private double latitude;

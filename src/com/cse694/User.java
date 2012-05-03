@@ -1,3 +1,4 @@
+package com.cse694;
 public class User {
 	private String email = "";
 	private String party_name = "";

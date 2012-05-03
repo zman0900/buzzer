@@ -1,3 +1,4 @@
+package com.cse694;
 
 public enum Foods {
 	NONE, MEXICAN, CHINESE, AMERICAN, ITALIAN, FAST_FOOD, SUBS, MEDITERRANEAN;
