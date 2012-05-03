@@ -45,7 +45,8 @@
             android:layout_alignLeft="@+id/password"
             android:layout_toRightOf="@id/emailLabel"
             android:ems="10"
-            android:inputType="text" >
+            android:hint="@string/emailHint"
+            android:inputType="text|textEmailAddress" >
 
             <requestFocus />
 

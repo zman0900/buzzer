@@ -14,5 +14,7 @@
     <string name="address">Address</string>
     <string name="phone">Phone Number</string>
     <string name="logout">Logout</string>
+    <string name="emailHint">name@mail.com</string>
+    <string name="partyNameHint">Last Name</string>
 
 </resources>

@@ -19,6 +19,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/registerPartyNameLabel"
         android:ems="10"
+        android:hint="@string/partyNameHint"
         android:inputType="textCapWords" >
 
         <requestFocus />
@@ -41,6 +42,7 @@
         android:layout_below="@id/registerPartyName"
         android:layout_toRightOf="@id/registerEmailLabel"
         android:ems="10"
+        android:hint="@string/emailHint"
         android:inputType="textEmailAddress" />
 
     <TextView
