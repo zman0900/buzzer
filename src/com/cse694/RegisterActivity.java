@@ -46,8 +46,13 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			// Passwords aren't equal
 			Toast.makeText(this, "Passwords don't match!", Toast.LENGTH_SHORT).show();
 		} else {
-			db.insertUser(email.getText().toString(), partyName.getText().toString(), pass.getText().toString());
-			finish();
+			if (email.getText().length() > 6 && partyName.getText().length() > 2 && pass.getText().length() > 4) {
+				db.insertUser(email.getText().toString(), partyName.getText().toString(), pass.getText().toString());
+				finish();
+			} else {
+				// Fields not filled or too short
+				Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }
