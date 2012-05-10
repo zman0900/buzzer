@@ -5,14 +5,19 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class BuzzerActivity extends MapActivity implements OnClickListener {
+public class BuzzerActivity extends MapActivity implements OnClickListener, LocationListener {
 	
 	private MapController mapController;
 	
@@ -48,7 +53,22 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	protected void onPause() {
     	super.onPause();
 		Log.d("buzzer","Buzzer called onPause");
+		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		locationManager.removeUpdates(this);
 	}
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	Log.d("buzzer","Buzzer called onResume");
+    	LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    	Criteria criteria = new Criteria();
+    	criteria.setAccuracy(Criteria.ACCURACY_FINE);
+    	String provider = locationManager.getBestProvider(criteria, true);
+    	Log.d("buzzer","Providers: "+locationManager.getAllProviders());
+    	Log.d("buzzer","Best provider: "+provider);
+    	locationManager.requestLocationUpdates(provider, 60000, 1000, this);
+    }
     
     @Override
 	protected void onStop() {
@@ -77,5 +97,29 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		Log.d("buzzer","Location Changed: "+location);
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		Log.d("buzzer","Location provider disabled: "+provider);
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		Log.d("buzzer","Location provider enabled: "+provider);
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		Log.d("buzzer","Location status changed: "+status+" provider: "+provider);
 	}
 }
