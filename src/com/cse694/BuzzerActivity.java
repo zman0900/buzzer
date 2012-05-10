@@ -66,19 +66,14 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	protected void onPause() {
 		super.onPause();
 		Log.d("buzzer", "Buzzer called onPause");
-		locManager.removeUpdates(this);
+		disableLocation();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		Log.d("buzzer", "Buzzer called onResume");
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		String provider = locManager.getBestProvider(criteria, true);
-		Log.d("buzzer", "Providers: " + locManager.getAllProviders());
-		Log.d("buzzer", "Best provider: " + provider);
-		locManager.requestLocationUpdates(provider, 60000, 1000, this);
+		enableLocation();
 	}
 
 	@Override
@@ -92,6 +87,20 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		super.onDestroy();
 		Log.d("buzzer", "Buzzer called onDestroy");
 	}
+	
+	private void enableLocation() {
+		Log.d("buzzer","Enabling location...");
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		String provider = locManager.getBestProvider(criteria, true);
+		Log.d("buzzer", "Best provider: " + provider);
+		locManager.requestLocationUpdates(provider, 60000, 1000, this);
+	}
+	
+	private void disableLocation() {
+		locManager.removeUpdates(this);
+		Log.d("buzzer","Location disabled");
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -102,7 +111,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
 			break;
 		}
-	}
+	}	
 
 	@Override
 	protected boolean isRouteDisplayed() {
@@ -125,12 +134,16 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
 		Log.d("buzzer", "Location provider disabled: " + provider);
+		disableLocation();
+		enableLocation();
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
 		Log.d("buzzer", "Location provider enabled: " + provider);
+		disableLocation();
+		enableLocation();
 	}
 
 	@Override
