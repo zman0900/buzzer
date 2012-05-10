@@ -2,7 +2,7 @@ package com.cse694;
 public class User {
 	private String email = "";
 	private String party_name = "";
-	private PartySizes party_size = PartySizes.UNINIT;
+	private PartySizes party_size = PartySizes.NONE;
 	private Restaurant checked_in_at = null;
 
 	public User() {
