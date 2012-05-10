@@ -43,15 +43,19 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		mapView.setBuiltInZoomControls(true);
 		mapController = mapView.getController();
 		mapController.setZoom(16);
-		
+
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Location last = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		Location last = locManager
+				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if (last != null) {
-			GeoPoint initGeoPoint = new GeoPoint((int) (last.getLatitude() * 1000000), (int) (last.getLongitude() * 1000000));
+			GeoPoint initGeoPoint = new GeoPoint(
+					(int) (last.getLatitude() * 1000000),
+					(int) (last.getLongitude() * 1000000));
 			mapController.animateTo(initGeoPoint);
 		}
-		
+
 	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
