@@ -45,45 +45,40 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	}
 	/** Called when the activity is first created. */
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("buzzer","Buzzer called onCreate");
-        setContentView(R.layout.main);
-        
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locListener = new MyLocationListener();
-        
-        locManager.requestLocationUpdates(
-        	    LocationManager.GPS_PROVIDER,
-        	    0,
-        	    0,
-        	    locListener);
-        
-        GeoPoint initGeoPoint = new GeoPoint(
-        		   (int)(locManager.getLastKnownLocation(
-        		    LocationManager.GPS_PROVIDER)
-        		    .getLatitude()*1000000),
-        		   (int)(locManager.getLastKnownLocation(
-        		    LocationManager.GPS_PROVIDER)
-        		    .getLongitude()*1000000));
-        
-        mapController.animateTo(initGeoPoint);
-        
-        View btnLogout = (Button)findViewById(R.id.logoutButton);
-        btnLogout.setOnClickListener(this);
-        
-        MapView mapView = (MapView)findViewById(R.id.mapView);
-        mapView.setBuiltInZoomControls(true);
-        mapController = mapView.getController();
-        mapController.setCenter(initGeoPoint);
-        
-        // Check for login
-        if (!LoginActivity.isLoggedIn(this)) {
-        	Log.i("buzzer","Not logged in");
-        	finish();
-        	startActivity(new Intent(BuzzerActivity.this,LoginActivity.class));
-        }
-    }
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		Log.d("buzzer", "Buzzer called onCreate");
+		setContentView(R.layout.main);
+
+		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locListener = new MyLocationListener();
+
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+				locListener);
+
+		GeoPoint initGeoPoint = new GeoPoint((int) (locManager
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+				.getLatitude() * 1000000), (int) (locManager
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+				.getLongitude() * 1000000));
+
+		mapController.animateTo(initGeoPoint);
+
+		View btnLogout = (Button) findViewById(R.id.logoutButton);
+		btnLogout.setOnClickListener(this);
+
+		MapView mapView = (MapView) findViewById(R.id.mapView);
+		mapView.setBuiltInZoomControls(true);
+		mapController = mapView.getController();
+		mapController.setCenter(initGeoPoint);
+
+		// Check for login
+		if (!LoginActivity.isLoggedIn(this)) {
+			Log.i("buzzer", "Not logged in");
+			finish();
+			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
+		}
+	}
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
