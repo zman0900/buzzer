@@ -17,10 +17,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 	public static final String LOGIN_STORE = "LoginStore";
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("buzzer","Login called onCreate");
         setContentView(R.layout.login);
-		Log.d("Buzzer","Showing login view");
 		
 		View btnLogin = (Button)findViewById(R.id.loginButton);
 		btnLogin.setOnClickListener(this);
@@ -29,6 +29,31 @@ public class LoginActivity extends Activity implements OnClickListener {
         View btnRegister = (Button)findViewById(R.id.registerButton);
         btnRegister.setOnClickListener(this);
 	}
+	
+	@Override
+    protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+    	Log.d("buzzer", "Login called onSaveInstanceState");
+    }
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.d("buzzer","Login called onPause");
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		Log.d("buzzer","Login called onStop");
+	}
+	
+	@Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	Log.d("buzzer","Login called onDestroy");
+    }
+
 
 	@Override
 	public void onClick(View v) {
@@ -37,11 +62,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 	    	finish();
     		break;
   		case R.id.loginButton:
-  			Log.d("Buzzer","Perform login");
+  			Log.i("Buzzer","Perform login");
   			checkLoginInfo();
   			break;
   		case R.id.registerButton:
-  			Log.d("Buzzer","Show register view");
+  			Log.i("Buzzer","Show register view");
   			startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
   			break;
 		}

@@ -11,16 +11,40 @@ import android.widget.Toast;
 
 public class RegisterActivity extends Activity implements OnClickListener {
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("buzzer","Register called onCreate");
         setContentView(R.layout.register);
-		Log.d("Buzzer","Showing register view");
 		
 		View btnCancel = (Button)findViewById(R.id.registerCancelButton);
         btnCancel.setOnClickListener(this);
         View btnRegister = (Button)findViewById(R.id.registerButton);
         btnRegister.setOnClickListener(this);
 	}
+	
+	@Override
+    protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+    	Log.d("buzzer", "Register called onSaveInstanceState");
+    }
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.d("buzzer","Register called onPause");
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		Log.d("buzzer","Register called onStop");
+	}
+	
+	@Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	Log.d("buzzer","Register called onDestroy");
+    }
 
 	@Override
 	public void onClick(View v) {
@@ -29,7 +53,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	    	finish();
     		break;
   		case R.id.registerButton:
-  			Log.d("Buzzer","Perform register");
+  			Log.i("Buzzer","Perform register");
   			register();
   			break;
 		}
