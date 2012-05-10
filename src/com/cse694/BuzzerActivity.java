@@ -42,16 +42,15 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		MapView mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);
 		mapController = mapView.getController();
-
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		GeoPoint initGeoPoint = new GeoPoint((int) (locManager
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-				.getLatitude() * 1000000), (int) (locManager
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-				.getLongitude() * 1000000));
 		mapController.setZoom(16);
-		mapController.animateTo(initGeoPoint);
+		
+		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location last = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (last != null) {
+			GeoPoint initGeoPoint = new GeoPoint((int) (last.getLatitude() * 1000000), (int) (last.getLongitude() * 1000000));
+			mapController.animateTo(initGeoPoint);
+		}
+		
 	}
 
 	@Override
@@ -64,23 +63,19 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	protected void onPause() {
 		super.onPause();
 		Log.d("buzzer", "Buzzer called onPause");
-		LocationManager locationManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.removeUpdates(this);
+		locManager.removeUpdates(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		Log.d("buzzer", "Buzzer called onResume");
-		LocationManager locationManager = (LocationManager) this
-				.getSystemService(Context.LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		String provider = locationManager.getBestProvider(criteria, true);
-		Log.d("buzzer", "Providers: " + locationManager.getAllProviders());
+		String provider = locManager.getBestProvider(criteria, true);
+		Log.d("buzzer", "Providers: " + locManager.getAllProviders());
 		Log.d("buzzer", "Best provider: " + provider);
-		locationManager.requestLocationUpdates(provider, 60000, 1000, this);
+		locManager.requestLocationUpdates(provider, 60000, 1000, this);
 	}
 
 	@Override
