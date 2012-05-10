@@ -4,14 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.google.android.maps.MapView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mapview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:apiKey="0NHLBtEG7lNt3U6N_h4u-RJAxMqR2XydbWcB5eg"
-        android:clickable="true" />
-
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
@@ -19,7 +11,9 @@
         android:text="@string/logout" />
 
     <com.google.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapView"
+        android:apiKey="0NHLBtEG7lNt3U6N_h4u-RJAxMqR2XydbWcB5eg"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:clickable="true" />
