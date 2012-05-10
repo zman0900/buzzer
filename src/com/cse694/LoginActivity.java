@@ -94,7 +94,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 	
 	public static Boolean isLoggedIn(Context context) {
 		SharedPreferences settings = context.getSharedPreferences(LOGIN_STORE, MODE_PRIVATE);
-		Log.i("Buzzer",settings.getAll().toString());
         return settings.getBoolean("loggedin", false);
 	}
 	
