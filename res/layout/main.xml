@@ -10,4 +10,9 @@
         android:layout_height="wrap_content"
         android:text="@string/logout" />
 
+    <com.google.android.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
 </LinearLayout>
