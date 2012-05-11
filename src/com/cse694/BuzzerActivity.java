@@ -1,12 +1,15 @@
 package com.cse694;
 
+import java.util.Calendar;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
+import android.location.GpsStatus;
+import android.location.GpsStatus.Listener;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,10 +20,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class BuzzerActivity extends MapActivity implements OnClickListener,
-		LocationListener {
+		LocationListener, Listener {
+
+	private static final int LOC_UPDATE_INTERVAL = 60000;
+	private static final int LOC_UPDATE_DIST = 1000;
 
 	private MapController mapController;
 	private LocationManager locManager;
+	private boolean gpsEnabled = false;
+	private Location lastLocation;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -42,15 +50,16 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		MapView mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);
 		mapController = mapView.getController();
-		mapController.setZoom(16);
+		mapController.setZoom(18);
 
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Location last = locManager
+
+		lastLocation = locManager
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		if (last != null) {
+		if (lastLocation != null) {
 			GeoPoint initGeoPoint = new GeoPoint(
-					(int) (last.getLatitude() * 1000000),
-					(int) (last.getLongitude() * 1000000));
+					(int) (lastLocation.getLatitude() * 1000000),
+					(int) (lastLocation.getLongitude() * 1000000));
 			mapController.animateTo(initGeoPoint);
 		}
 
@@ -87,19 +96,20 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		super.onDestroy();
 		Log.d("buzzer", "Buzzer called onDestroy");
 	}
-	
+
 	private void enableLocation() {
-		Log.d("buzzer","Enabling location...");
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		String provider = locManager.getBestProvider(criteria, true);
-		Log.d("buzzer", "Best provider: " + provider);
-		locManager.requestLocationUpdates(provider, 60000, 1000, this);
+		Log.d("buzzer", "Enabling location...");
+		locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+				LOC_UPDATE_INTERVAL, LOC_UPDATE_DIST, this);
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+				LOC_UPDATE_INTERVAL, LOC_UPDATE_DIST, this);
+		locManager.addGpsStatusListener(this);
 	}
-	
+
 	private void disableLocation() {
 		locManager.removeUpdates(this);
-		Log.d("buzzer","Location disabled");
+		locManager.removeGpsStatusListener(this);
+		Log.d("buzzer", "Location disabled");
 	}
 
 	@Override
@@ -111,7 +121,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
 			break;
 		}
-	}	
+	}
 
 	@Override
 	protected boolean isRouteDisplayed() {
@@ -121,12 +131,31 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
 		Log.d("buzzer", "Location Changed: " + location);
+
+		if (location.getProvider() == LocationManager.NETWORK_PROVIDER
+				&& gpsEnabled) {
+			if (lastLocation != null
+					&& location.getAccuracy() >= lastLocation.getAccuracy()) {
+				// don't update if accuracy from network is worse
+				Log.d("buzzer", "\tNot updating since network is less accurate");
+				return;
+			}
+			long now = Calendar.getInstance().getTimeInMillis();
+			if (lastLocation != null
+					&& lastLocation.getProvider() == LocationManager.GPS_PROVIDER
+					&& (now - lastLocation.getTime()) < LOC_UPDATE_INTERVAL) {
+				// don't update if gps location is not old
+				Log.d("buzzer",
+						"\tNot updating since last location is gps and not old");
+				return;
+			}
+		}
+		
+		lastLocation = location;
 		GeoPoint myGeoPoint = new GeoPoint(
 				(int) (location.getLatitude() * 1000000),
 				(int) (location.getLongitude() * 1000000));
-
 		mapController.animateTo(myGeoPoint);
 	}
 
@@ -134,16 +163,12 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
 		Log.d("buzzer", "Location provider disabled: " + provider);
-		disableLocation();
-		enableLocation();
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
 		Log.d("buzzer", "Location provider enabled: " + provider);
-		disableLocation();
-		enableLocation();
 	}
 
 	@Override
@@ -151,5 +176,14 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		// TODO Auto-generated method stub
 		Log.d("buzzer", "Location status changed: " + status + " provider: "
 				+ provider);
+	}
+
+	@Override
+	public void onGpsStatusChanged(int event) {
+		if (event == GpsStatus.GPS_EVENT_STARTED) {
+			gpsEnabled = true;
+		} else if (event == GpsStatus.GPS_EVENT_STOPPED) {
+			gpsEnabled = false;
+		}
 	}
 }
