@@ -5,11 +5,14 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class BuzzerActivity extends MapActivity implements OnClickListener {
 
@@ -17,8 +20,24 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 
 	private MapView mapView;
 	private MapController mapController;
-	private MyLocationOverlay myLocationOverlay;
+	private GoodLocationOverlay myLocationOverlay;
 
+	private class GoodLocationOverlay extends MyLocationOverlay {
+
+		public GoodLocationOverlay(Context context, MapView mapView) {
+			super(context, mapView);
+			// TODO Auto-generated constructor stub
+		}
+		
+		@Override
+		public boolean onTap(GeoPoint p, MapView map) {
+//			LoginDatabaseHelper db = new LoginDatabaseHelper(BuzzerActivity.this);
+			
+			Toast.makeText(BuzzerActivity.this, "This is your name!", Toast.LENGTH_SHORT).show();
+			return true;
+		}
+	}
+	
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +63,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 		mapController.setZoom(MAP_ZOOM);
 
 		// create an overlay that shows our current location
-		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		myLocationOverlay = new GoodLocationOverlay(this, mapView);
 
 		// add this overlay to the MapView and refresh it
 		mapView.getOverlays().add(myLocationOverlay);
