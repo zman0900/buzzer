@@ -1,38 +1,22 @@
 package com.cse694;
 
-import java.util.Calendar;
-
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
-import android.content.Context;
 import android.content.Intent;
-import android.location.GpsStatus;
-import android.location.GpsStatus.Listener;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 
-public class BuzzerActivity extends MapActivity implements OnClickListener,
-		LocationListener, Listener {
+public class BuzzerActivity extends MapActivity implements OnClickListener {
 
-	private static final int LOC_UPDATE_INTERVAL = 60000;
-	private static final int LOC_UPDATE_DIST = 1000;
 	private static final int MAP_ZOOM = 18;
 
 	private MapView mapView;
 	private MapController mapController;
-	private LocationManager locManager;
-	private boolean gpsEnabled = false;
-	private Location lastLocation;
-	private GeoPoint lastMapCenter;
 	private MyLocationOverlay myLocationOverlay;
 
 	/** Called when the activity is first created. */
@@ -49,9 +33,9 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
 		}
 
-		View btnLogout = (Button) findViewById(R.id.logoutButton);
+		View btnLogout = findViewById(R.id.logoutButton);
 		btnLogout.setOnClickListener(this);
-		View btnRecenter = (Button) findViewById(R.id.recenterButton);
+		View btnRecenter = findViewById(R.id.recenterButton);
 		btnRecenter.setOnClickListener(this);
 
 		mapView = (MapView) findViewById(R.id.mapView);
@@ -74,14 +58,6 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			}
 		});
 
-		/*locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		lastLocation = locManager
-				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		if (lastLocation != null) {
-			recenterMap();
-		}*/
-
 	}
 
 	@Override
@@ -94,7 +70,6 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	protected void onPause() {
 		super.onPause();
 		Log.d("buzzer", "Buzzer called onPause");
-		disableLocation();
 		// Don't crash in the emulator
 		if (myLocationOverlay != null) {
 			myLocationOverlay.disableMyLocation();
@@ -105,7 +80,6 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	protected void onResume() {
 		super.onResume();
 		Log.d("buzzer", "Buzzer called onResume");
-		enableLocation();
 		// Don't crash in the emulator
 		if (myLocationOverlay != null) {
 			myLocationOverlay.enableMyLocation();
@@ -124,28 +98,12 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		Log.d("buzzer", "Buzzer called onDestroy");
 	}
 
-	/*private void enableLocation() {
-		Log.d("buzzer", "Enabling location...");
-		locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-				LOC_UPDATE_INTERVAL, LOC_UPDATE_DIST, this);
-		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				LOC_UPDATE_INTERVAL, LOC_UPDATE_DIST, this);
-		locManager.addGpsStatusListener(this);
-	}
-
-	private void disableLocation() {
-		locManager.removeUpdates(this);
-		locManager.removeGpsStatusListener(this);
-		Log.d("buzzer", "Location disabled");
-	}*/
-
 	private void recenterMap() {
 		mapController.setZoom(MAP_ZOOM);
 		GeoPoint myGeoPoint = new GeoPoint(
 				(int) (myLocationOverlay.getLastFix().getLatitude() * 1000000),
 				(int) (myLocationOverlay.getLastFix().getLongitude() * 1000000));
 		mapController.animateTo(myGeoPoint);
-		lastMapCenter = myGeoPoint;
 	}
 
 	@Override
@@ -168,64 +126,4 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		return false;
 	}
 
-	/*@Override
-	public void onLocationChanged(Location location) {
-		Log.d("buzzer", "Location Changed: " + location);
-
-		if (location.getProvider() == LocationManager.NETWORK_PROVIDER
-				&& gpsEnabled) {
-			if (lastLocation != null
-					&& location.getAccuracy() >= lastLocation.getAccuracy()) {
-				// don't update if accuracy from network is worse
-				Log.d("buzzer", "\tNot updating since network is less accurate");
-				return;
-			}
-			long now = Calendar.getInstance().getTimeInMillis();
-			if (lastLocation != null
-					&& lastLocation.getProvider() == LocationManager.GPS_PROVIDER
-					&& (now - lastLocation.getTime()) < LOC_UPDATE_INTERVAL) {
-				// don't update if gps location is not old
-				Log.d("buzzer",
-						"\tNot updating since last location is gps and not old");
-				return;
-			}
-		}
-
-		lastLocation = location;
-
-		// Don't move map if user has scrolled
-		if (lastMapCenter.equals(mapView.getMapCenter())) {
-			recenterMap();
-		} else {
-			Log.d("buzzer", "Not moving map since user scrolled");
-		}
-	}
-
-	@Override
-	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		Log.d("buzzer", "Location provider disabled: " + provider);
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		Log.d("buzzer", "Location provider enabled: " + provider);
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		Log.d("buzzer", "Location status changed: " + status + " provider: "
-				+ provider);
-	}
-
-	@Override
-	public void onGpsStatusChanged(int event) {
-		if (event == GpsStatus.GPS_EVENT_STARTED) {
-			gpsEnabled = true;
-		} else if (event == GpsStatus.GPS_EVENT_STOPPED) {
-			gpsEnabled = false;
-		}
-	}*/
 }
