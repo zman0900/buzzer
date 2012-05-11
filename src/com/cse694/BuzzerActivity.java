@@ -6,8 +6,11 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.location.GpsStatus;
 import android.location.GpsStatus.Listener;
 import android.location.Location;
@@ -61,6 +64,12 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 					(int) (lastLocation.getLatitude() * 1000000),
 					(int) (lastLocation.getLongitude() * 1000000));
 			mapController.animateTo(initGeoPoint);
+			// create an overlay that shows our current location
+            MyLocationOverlay myLocationOverlay = new MyLocationOverlay(this, mapView);
+            
+            // add this overlay to the MapView and refresh it
+            mapView.getOverlays().add(myLocationOverlay);
+            mapView.postInvalidate();
 		}
 
 	}
