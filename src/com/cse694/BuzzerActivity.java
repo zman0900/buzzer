@@ -1,14 +1,17 @@
 package com.cse694;
 
+import java.util.List;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
-
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +30,6 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 
 		public GoodLocationOverlay(Context context, MapView mapView) {
 			super(context, mapView);
-			// TODO Auto-generated constructor stub
 		}
 
 		@Override
@@ -85,6 +87,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 			}
 		});
 
+		addOverlays();
 	}
 
 	@Override
@@ -133,6 +136,27 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 		mapController.animateTo(myGeoPoint);
 	}
 
+	private void addOverlays() {
+		List<Overlay> mapOverlays = mapView.getOverlays();
+		Drawable drawable = this.getResources().getDrawable(
+				R.drawable.mappin);
+		RestaurantItemizedOverlay itemizedoverlay = new RestaurantItemizedOverlay(
+				drawable, this);
+		
+		// TODO: Remove testing code
+		GeoPoint point = new GeoPoint(19240000,-99120000);
+		OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm in Mexico City!");
+		itemizedoverlay.addOverlay(overlayitem);
+		
+		GeoPoint point2 = new GeoPoint(35410000, 139460000);
+		OverlayItem overlayitem2 = new OverlayItem(point2, "Sekai, konichiwa!", "I'm in Japan!");
+		itemizedoverlay.addOverlay(overlayitem2);
+		// End testing code
+		
+		mapOverlays.add(itemizedoverlay);
+		mapView.postInvalidate();
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -150,7 +174,6 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
