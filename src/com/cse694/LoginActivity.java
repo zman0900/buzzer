@@ -82,6 +82,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putString("email", email.getText().toString());
 			editor.putString("password", password.getText().toString());
+			editor.putString("name", db.getNameFromEmail(email.getText().toString()));
 			editor.putBoolean("loggedin", true);
 			editor.commit();
 			

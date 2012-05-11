@@ -5,9 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class LoginDatabaseHelper extends SQLiteOpenHelper {
-	
+
 	private static final String DATABASE_NAME = "BuzzerAccounts.db";
 	private static final int DATABASE_VERSION = 1;
 	private static final String TABLE_NAME = "Accounts";
@@ -21,12 +22,14 @@ public class LoginDatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE "+TABLE_NAME+" ("+COL_EMAIL+" VARCHAR(255) PRIMARY KEY, "+COL_PNAME+" VARCHAR(255), "+COL_PASS+" VARCHAR(255))");
+		db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_EMAIL
+				+ " VARCHAR(255) PRIMARY KEY, " + COL_PNAME + " VARCHAR(255), "
+				+ COL_PASS + " VARCHAR(255))");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		onCreate(db);
 	}
 
@@ -39,16 +42,27 @@ public class LoginDatabaseHelper extends SQLiteOpenHelper {
 		db.insert(TABLE_NAME, null, cv);
 		db.close();
 	}
-	
+
 	public Boolean checkUser(String email, String password) {
 		Boolean result = false;
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor c = db.query(TABLE_NAME, null, COL_EMAIL+"=? AND "+COL_PASS+"=?", new String[] {email,password}, null, null, null);
-		if(c.moveToFirst()) {
+		Cursor c = db.query(TABLE_NAME, null, COL_EMAIL + "=? AND " + COL_PASS
+				+ "=?", new String[]{email, password}, null, null, null);
+		if (c.moveToFirst()) {
 			// Got a result so login is correct
 			result = true;
 		}
 		db.close();
 		return result;
+	}
+
+	public String getNameFromEmail(String email) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String ans = "";
+		Cursor c = db.query(TABLE_NAME, null, COL_EMAIL+"=?", new String[] {email}, null, null, null);
+		if (c.moveToFirst()) {
+			ans = c.getString(1);
+		}
+		return ans;
 	}
 }
