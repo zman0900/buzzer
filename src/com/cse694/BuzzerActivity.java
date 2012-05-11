@@ -9,7 +9,6 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.location.GpsStatus;
 import android.location.GpsStatus.Listener;
 import android.location.Location;
@@ -34,6 +33,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	private boolean gpsEnabled = false;
 	private Location lastLocation;
 	private GeoPoint lastMapCenter;
+	private MyLocationOverlay myLocationOverlay;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -67,7 +67,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			recenterMap();
 
 			// create an overlay that shows our current location
-            MyLocationOverlay myLocationOverlay = new MyLocationOverlay(this, mapView);
+            myLocationOverlay = new MyLocationOverlay(this, mapView);
             
             // add this overlay to the MapView and refresh it
             mapView.getOverlays().add(myLocationOverlay);
@@ -87,6 +87,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		super.onPause();
 		Log.d("buzzer", "Buzzer called onPause");
 		disableLocation();
+		myLocationOverlay.disableMyLocation();
 	}
 
 	@Override
@@ -94,6 +95,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		super.onResume();
 		Log.d("buzzer", "Buzzer called onResume");
 		enableLocation();
+		myLocationOverlay.enableMyLocation();
 	}
 
 	@Override
