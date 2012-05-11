@@ -4,17 +4,34 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:width="75dp"
+            android:text="@string/logout" />
+
+        <Button
+            android:id="@+id/recenterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/recenter"
+            android:width="75dp" />
+
+    </RelativeLayout>
 
     <com.google.android.maps.MapView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapView"
-        android:apiKey="0NHLBtEG7lNt3U6N_h4u-RJAxMqR2XydbWcB5eg"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:apiKey="0NHLBtEG7lNt3U6N_h4u-RJAxMqR2XydbWcB5eg"
         android:clickable="true" />
+
 </LinearLayout>

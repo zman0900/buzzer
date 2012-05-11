@@ -24,11 +24,14 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 
 	private static final int LOC_UPDATE_INTERVAL = 60000;
 	private static final int LOC_UPDATE_DIST = 1000;
+	private static final int MAP_ZOOM = 18;
 
+	private MapView mapView;
 	private MapController mapController;
 	private LocationManager locManager;
 	private boolean gpsEnabled = false;
 	private Location lastLocation;
+	private GeoPoint lastMapCenter;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -46,11 +49,13 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 
 		View btnLogout = (Button) findViewById(R.id.logoutButton);
 		btnLogout.setOnClickListener(this);
+		View btnRecenter = (Button) findViewById(R.id.recenterButton);
+		btnRecenter.setOnClickListener(this);
 
-		MapView mapView = (MapView) findViewById(R.id.mapView);
+		mapView = (MapView) findViewById(R.id.mapView);
 		mapView.setBuiltInZoomControls(true);
 		mapController = mapView.getController();
-		mapController.setZoom(18);
+		mapController.setZoom(MAP_ZOOM);
 
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -61,6 +66,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 					(int) (lastLocation.getLatitude() * 1000000),
 					(int) (lastLocation.getLongitude() * 1000000));
 			mapController.animateTo(initGeoPoint);
+			lastMapCenter = mapView.getMapCenter();
 		}
 
 	}
@@ -112,6 +118,10 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		Log.d("buzzer", "Location disabled");
 	}
 
+	private void recenterMap() {
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -119,6 +129,9 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			LoginActivity.logout(this);
 			finish();
 			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
+			break;
+		case R.id.recenterButton:
+			recenterMap();
 			break;
 		}
 	}
@@ -151,12 +164,18 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 				return;
 			}
 		}
-		
+
 		lastLocation = location;
-		GeoPoint myGeoPoint = new GeoPoint(
-				(int) (location.getLatitude() * 1000000),
-				(int) (location.getLongitude() * 1000000));
-		mapController.animateTo(myGeoPoint);
+
+		// Don't move map if user has scrolled
+		if (lastMapCenter == mapView.getMapCenter()) {
+			GeoPoint myGeoPoint = new GeoPoint(
+					(int) (location.getLatitude() * 1000000),
+					(int) (location.getLongitude() * 1000000));
+			mapController.animateTo(myGeoPoint);
+		} else {
+			Log.d("buzzer","Not moving map since user scrolled");
+		}
 	}
 
 	@Override

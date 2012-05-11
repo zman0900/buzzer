@@ -14,5 +14,6 @@
     <string name="logout">Logout</string>
     <string name="emailHint">name@mail.com</string>
     <string name="partyNameHint">Last Name</string>
+    <string name="recenter">Find Me</string>
 
 </resources>
