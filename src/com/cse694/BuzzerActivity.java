@@ -8,12 +8,14 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class BuzzerActivity extends MapActivity implements OnClickListener {
 
@@ -21,7 +23,27 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 
 	private MapView mapView;
 	private MapController mapController;
-	private MyLocationOverlay myLocationOverlay;
+	private GoodLocationOverlay myLocationOverlay;
+
+	private class GoodLocationOverlay extends MyLocationOverlay {
+
+		public GoodLocationOverlay(Context context, MapView mapView) {
+			super(context, mapView);
+		}
+
+		@Override
+		public boolean onTap(GeoPoint p, MapView map) {
+			// LoginDatabaseHelper db = new
+			// LoginDatabaseHelper(BuzzerActivity.this);
+			boolean ans = false;
+			if (super.onTap(p, map)) {
+				Toast.makeText(BuzzerActivity.this, "This is your name!",
+						Toast.LENGTH_SHORT).show();
+				ans = true;
+			}
+			return ans;
+		}
+	}
 
 	/** Called when the activity is first created. */
 	@Override
@@ -48,7 +70,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 		mapController.setZoom(MAP_ZOOM);
 
 		// create an overlay that shows our current location
-		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		myLocationOverlay = new GoodLocationOverlay(this, mapView);
 
 		// add this overlay to the MapView and refresh it
 		mapView.getOverlays().add(myLocationOverlay);
@@ -135,14 +157,15 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.logoutButton:
-			LoginActivity.logout(this);
-			finish();
-			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
-			break;
-		case R.id.recenterButton:
-			recenterMap();
-			break;
+			case R.id.logoutButton :
+				LoginActivity.logout(this);
+				finish();
+				startActivity(new Intent(BuzzerActivity.this,
+						LoginActivity.class));
+				break;
+			case R.id.recenterButton :
+				recenterMap();
+				break;
 		}
 	}
 
