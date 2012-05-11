@@ -142,8 +142,8 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	private void recenterMap() {
 		mapController.setZoom(MAP_ZOOM);
 		GeoPoint myGeoPoint = new GeoPoint(
-				(int) (lastLocation.getLatitude() * 1000000),
-				(int) (lastLocation.getLongitude() * 1000000));
+				(int) (myLocationOverlay.getLastFix().getLatitude() * 1000000),
+				(int) (myLocationOverlay.getLastFix().getLongitude() * 1000000));
 		mapController.animateTo(myGeoPoint);
 		lastMapCenter = myGeoPoint;
 	}
