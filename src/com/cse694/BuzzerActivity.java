@@ -67,11 +67,11 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 			recenterMap();
 
 			// create an overlay that shows our current location
-            myLocationOverlay = new MyLocationOverlay(this, mapView);
-            
-            // add this overlay to the MapView and refresh it
-            mapView.getOverlays().add(myLocationOverlay);
-            mapView.postInvalidate();
+			myLocationOverlay = new MyLocationOverlay(this, mapView);
+
+			// add this overlay to the MapView and refresh it
+			mapView.getOverlays().add(myLocationOverlay);
+			mapView.postInvalidate();
 		}
 
 	}
@@ -87,7 +87,10 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		super.onPause();
 		Log.d("buzzer", "Buzzer called onPause");
 		disableLocation();
-		myLocationOverlay.disableMyLocation();
+		// Don't crash in the emulator
+		if (myLocationOverlay != null) {
+			myLocationOverlay.disableMyLocation();
+		}
 	}
 
 	@Override
@@ -95,7 +98,10 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		super.onResume();
 		Log.d("buzzer", "Buzzer called onResume");
 		enableLocation();
-		myLocationOverlay.enableMyLocation();
+		// Don't crash in the emulator
+		if (myLocationOverlay != null) {
+			myLocationOverlay.enableMyLocation();
+		}
 	}
 
 	@Override
@@ -183,7 +189,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		if (lastMapCenter.equals(mapView.getMapCenter())) {
 			recenterMap();
 		} else {
-			Log.d("buzzer","Not moving map since user scrolled");
+			Log.d("buzzer", "Not moving map since user scrolled");
 		}
 	}
 
