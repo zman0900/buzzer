@@ -64,11 +64,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		lastLocation = locManager
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if (lastLocation != null) {
-			GeoPoint initGeoPoint = new GeoPoint(
-					(int) (lastLocation.getLatitude() * 1000000),
-					(int) (lastLocation.getLongitude() * 1000000));
-			mapController.animateTo(initGeoPoint);
-			lastMapCenter = mapView.getMapCenter();
+			recenterMap();
 
 			// create an overlay that shows our current location
             MyLocationOverlay myLocationOverlay = new MyLocationOverlay(this, mapView);
@@ -128,7 +124,12 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 	}
 
 	private void recenterMap() {
-
+		mapController.setZoom(MAP_ZOOM);
+		GeoPoint myGeoPoint = new GeoPoint(
+				(int) (lastLocation.getLatitude() * 1000000),
+				(int) (lastLocation.getLongitude() * 1000000));
+		mapController.animateTo(myGeoPoint);
+		lastMapCenter = myGeoPoint;
 	}
 
 	@Override
@@ -177,11 +178,8 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		lastLocation = location;
 
 		// Don't move map if user has scrolled
-		if (lastMapCenter == mapView.getMapCenter()) {
-			GeoPoint myGeoPoint = new GeoPoint(
-					(int) (location.getLatitude() * 1000000),
-					(int) (location.getLongitude() * 1000000));
-			mapController.animateTo(myGeoPoint);
+		if (lastMapCenter.equals(mapView.getMapCenter())) {
+			recenterMap();
 		} else {
 			Log.d("buzzer","Not moving map since user scrolled");
 		}
