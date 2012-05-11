@@ -136,7 +136,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	private void addOverlays() {
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(
-				R.drawable.ic_launcher);
+				R.drawable.mappin);
 		RestaurantItemizedOverlay itemizedoverlay = new RestaurantItemizedOverlay(
 				drawable, this);
 		
