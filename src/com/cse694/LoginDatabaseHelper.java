@@ -63,6 +63,8 @@ public class LoginDatabaseHelper extends SQLiteOpenHelper {
 		if (c.moveToFirst()) {
 			ans = c.getString(1);
 		}
+		c.close();
+		db.close();
 		return ans;
 	}
 }
