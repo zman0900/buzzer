@@ -28,16 +28,21 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 			super(context, mapView);
 			// TODO Auto-generated constructor stub
 		}
-		
+
 		@Override
 		public boolean onTap(GeoPoint p, MapView map) {
-//			LoginDatabaseHelper db = new LoginDatabaseHelper(BuzzerActivity.this);
-			
-			Toast.makeText(BuzzerActivity.this, "This is your name!", Toast.LENGTH_SHORT).show();
-			return true;
+			// LoginDatabaseHelper db = new
+			// LoginDatabaseHelper(BuzzerActivity.this);
+			boolean ans = false;
+			if (super.onTap(p, map)) {
+				Toast.makeText(BuzzerActivity.this, "This is your name!",
+						Toast.LENGTH_SHORT).show();
+				ans = true;
+			}
+			return ans;
 		}
 	}
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 		// add this overlay to the MapView and refresh it
 		mapView.getOverlays().add(myLocationOverlay);
 		mapView.postInvalidate();
-		
+
 		// Center map on first location fix
 		myLocationOverlay.runOnFirstFix(new Runnable() {
 			@Override
@@ -119,8 +124,8 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 
 	private void recenterMap() {
 		mapController.setZoom(MAP_ZOOM);
-		GeoPoint myGeoPoint = new GeoPoint(
-				(int) (myLocationOverlay.getLastFix().getLatitude() * 1000000),
+		GeoPoint myGeoPoint = new GeoPoint((int) (myLocationOverlay
+				.getLastFix().getLatitude() * 1000000),
 				(int) (myLocationOverlay.getLastFix().getLongitude() * 1000000));
 		mapController.animateTo(myGeoPoint);
 	}
@@ -128,14 +133,15 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.logoutButton:
-			LoginActivity.logout(this);
-			finish();
-			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
-			break;
-		case R.id.recenterButton:
-			recenterMap();
-			break;
+			case R.id.logoutButton :
+				LoginActivity.logout(this);
+				finish();
+				startActivity(new Intent(BuzzerActivity.this,
+						LoginActivity.class));
+				break;
+			case R.id.recenterButton :
+				recenterMap();
+				break;
 		}
 	}
 

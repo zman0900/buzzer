@@ -2,26 +2,21 @@ package com.cse694;
 public class User {
 	private String email = "";
 	private String party_name = "";
-	private PartySizes party_size = PartySizes.NONE;
+	private String password = "";
 	private Restaurant checked_in_at = null;
 
 	public User() {
 	}
 
-	public boolean register(String email, String party_name,
-			PartySizes party_size) {
+	public boolean register(String email, String party_name, String password) {
 		this.email = email;
 		this.party_name = party_name;
-		this.party_size = party_size;
+		this.password = password;
 		return true;
 	}
 
-	public boolean check_in(Restaurant rest) {
+	public boolean check_in(Restaurant rest, int party_size) {
 		this.checked_in_at = rest;
-		/*Notification seat_alert = new Notification(this,party_name
-				+ " is requesting a seat at your restaurant, "
-				+ rest.toString ());
-		seat_alert.send ();*/
 		return true;
 	}
 
