@@ -59,20 +59,28 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		mapController = mapView.getController();
 		mapController.setZoom(MAP_ZOOM);
 
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		// create an overlay that shows our current location
+		myLocationOverlay = new MyLocationOverlay(this, mapView);
+
+		// add this overlay to the MapView and refresh it
+		mapView.getOverlays().add(myLocationOverlay);
+		mapView.postInvalidate();
+		
+		// Center map on first location fix
+		myLocationOverlay.runOnFirstFix(new Runnable() {
+			@Override
+			public void run() {
+				recenterMap();
+			}
+		});
+
+		/*locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		lastLocation = locManager
 				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if (lastLocation != null) {
 			recenterMap();
-
-			// create an overlay that shows our current location
-			myLocationOverlay = new MyLocationOverlay(this, mapView);
-
-			// add this overlay to the MapView and refresh it
-			mapView.getOverlays().add(myLocationOverlay);
-			mapView.postInvalidate();
-		}
+		}*/
 
 	}
 
@@ -116,7 +124,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		Log.d("buzzer", "Buzzer called onDestroy");
 	}
 
-	private void enableLocation() {
+	/*private void enableLocation() {
 		Log.d("buzzer", "Enabling location...");
 		locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
 				LOC_UPDATE_INTERVAL, LOC_UPDATE_DIST, this);
@@ -129,7 +137,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		locManager.removeUpdates(this);
 		locManager.removeGpsStatusListener(this);
 		Log.d("buzzer", "Location disabled");
-	}
+	}*/
 
 	private void recenterMap() {
 		mapController.setZoom(MAP_ZOOM);
@@ -160,7 +168,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		return false;
 	}
 
-	@Override
+	/*@Override
 	public void onLocationChanged(Location location) {
 		Log.d("buzzer", "Location Changed: " + location);
 
@@ -219,5 +227,5 @@ public class BuzzerActivity extends MapActivity implements OnClickListener,
 		} else if (event == GpsStatus.GPS_EVENT_STOPPED) {
 			gpsEnabled = false;
 		}
-	}
+	}*/
 }
