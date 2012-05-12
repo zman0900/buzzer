@@ -10,6 +10,7 @@ import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +38,9 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 			// LoginDatabaseHelper(BuzzerActivity.this);
 			boolean ans = false;
 			if (super.onTap(p, map)) {
-				Toast.makeText(BuzzerActivity.this, "This is your name!",
+				SharedPreferences settings = getSharedPreferences("LoginStore", MODE_PRIVATE);
+				String onTapText = settings.getString("name","You Fail!");
+				Toast.makeText(BuzzerActivity.this, onTapText,
 						Toast.LENGTH_SHORT).show();
 				ans = true;
 			}
