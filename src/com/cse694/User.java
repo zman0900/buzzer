@@ -5,7 +5,7 @@ public class User {
 	private PartySizes party_size = PartySizes.UNINIT;
 	private Restaurant checked_in_at = null;
 
-	public User() {
+	private User() {
 	}
 
 	public boolean register(String email, String party_name,
