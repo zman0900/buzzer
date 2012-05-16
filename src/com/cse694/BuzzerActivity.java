@@ -1,5 +1,10 @@
 package com.cse694;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -38,8 +43,9 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 			// LoginDatabaseHelper(BuzzerActivity.this);
 			boolean ans = false;
 			if (super.onTap(p, map)) {
-				SharedPreferences settings = getSharedPreferences("LoginStore", MODE_PRIVATE);
-				String onTapText = settings.getString("name","You Fail!");
+				SharedPreferences settings = getSharedPreferences("LoginStore",
+						MODE_PRIVATE);
+				String onTapText = settings.getString("name", "You Fail!");
 				Toast.makeText(BuzzerActivity.this, onTapText,
 						Toast.LENGTH_SHORT).show();
 				ans = true;
@@ -138,21 +144,78 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 
 	private void addOverlays() {
 		List<Overlay> mapOverlays = mapView.getOverlays();
-		Drawable drawable = this.getResources().getDrawable(
-				R.drawable.mappin);
+		Drawable drawable = this.getResources().getDrawable(R.drawable.mappin);
 		RestaurantItemizedOverlay itemizedoverlay = new RestaurantItemizedOverlay(
 				drawable, this);
-		
-		// TODO: Remove testing code
-		GeoPoint point = new GeoPoint(19240000,-99120000);
-		OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm in Mexico City!");
+
+		/* TODO: Remove testing code
+		GeoPoint point = new GeoPoint(19240000, -99120000);
+		OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!",
+				"I'm in Mexico City!");
 		itemizedoverlay.addOverlay(overlayitem);
-		
+
 		GeoPoint point2 = new GeoPoint(35410000, 139460000);
-		OverlayItem overlayitem2 = new OverlayItem(point2, "Sekai, konichiwa!", "I'm in Japan!");
+		OverlayItem overlayitem2 = new OverlayItem(point2, "Sekai, konichiwa!",
+				"I'm in Japan!");
 		itemizedoverlay.addOverlay(overlayitem2);
 		// End testing code
-		
+		*/
+
+		try {
+			Reader file = new BufferedReader(new FileReader("assets/resDB.txt"));
+			int ch = file.read();
+			String name = "";
+			String info = "";
+			String latitudeS = "";
+			String longitudeS = "";
+			int latitude, longitude;
+			GeoPoint thisRestaurant;
+			OverlayItem thisItem;
+			while (ch != -1) { // while not at EOF
+				// read latitude
+				while (ch != (int) ',') {
+					latitudeS = latitudeS + (char) ch;
+					ch = file.read();
+				}
+				ch = file.read(); // next character
+				// read longitude
+				while (ch != (int) ',') {
+					longitudeS = longitudeS + (char) ch;
+					ch = file.read();
+				}
+				ch = file.read(); // next character
+				latitude = Integer.parseInt(latitudeS);
+				longitude = Integer.parseInt(longitudeS);
+				// read restaurant name
+				while (ch != (int) ',') {
+					name = name + (char) ch;
+					ch = file.read();
+				}
+				ch = file.read(); // next character
+				// read short description (to end of line)
+				while (ch != (int) System.getProperty("line.separator").charAt(
+						0)) {
+					info = info + (char) ch;
+					ch = file.read();
+				}
+				// read through newline, if it is a multi-character sequence
+				// also skips multiple newlines
+				String cha = "" + (char) ch;
+				while (System.getProperty("line.separator").contains(cha)) {
+					cha = "" + (char) file.read();
+				}
+				thisRestaurant = new GeoPoint(latitude, longitude);
+				thisItem = new OverlayItem(thisRestaurant, name, info);
+				itemizedoverlay.addOverlay(thisItem);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		mapOverlays.add(itemizedoverlay);
 		mapView.postInvalidate();
 	}
