@@ -9,7 +9,6 @@ public class User {
 	private Restaurant checked_in_at;
 	private static LoginDatabaseHelper db;
 	
-
 	public User(String partyName, String email, String password, Context context) {
 		if (db == null) {
 			db = new LoginDatabaseHelper(context);
