@@ -1,0 +1,22 @@
+{
+    "restaurants": [
+        {
+            "restaurant": {
+                "id": 0,
+                "name": "Chipotle",
+                "desc": "Delicious burrito joint!",
+                "lat": 19240000,
+                "lon": -99120000
+            }
+        },
+        {
+            "restaurant": {
+                "id": 1,
+                "name": "Genji",
+                "desc": "Wonderful Japanese steakhouse!",
+                "lat": 35410000,
+                "lon": 139460000
+            }
+        }
+    ]
+}
