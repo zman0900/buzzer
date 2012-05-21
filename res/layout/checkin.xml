@@ -10,49 +10,70 @@
         android:layout_weight="0.11" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/restaurantName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Large Text"
+            android:text="Filler"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/checkingInAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/restaurantName"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Spinner
-            android:id="@+id/spinner1"
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/textView2" />
+            android:layout_below="@+id/checkingInAt" >
+
+            <RadioButton
+                android:id="@+id/twoPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/twoPeople" />
+
+            <RadioButton
+                android:id="@+id/fourPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fourPeople" />
+
+            <RadioButton
+                android:id="@+id/sixPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sixPeople" />
+
+            <RadioButton
+                android:id="@+id/sevenPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sevenPlus" />
+        </RadioGroup>
 
         <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:id="@+id/checkIn"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/spinner1"
-            android:layout_toLeftOf="@+id/button2"
-            android:text="Button" />
+            android:layout_below="@+id/radioGroup"
+            android:text="Check In!" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:id="@+id/cancel"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/spinner1"
-            android:layout_toRightOf="@+id/textView2"
-            android:text="Button" />
-
+            android:layout_below="@+id/radioGroup"
+            android:text="Cancel" />
     </RelativeLayout>
 
 </LinearLayout>

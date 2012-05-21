@@ -15,5 +15,9 @@
     <string name="emailHint">name@mail.com</string>
     <string name="partyNameHint">Last Name</string>
     <string name="recenter">Find Me</string>
+    <string name="twoPeople">1-2 People</string>
+    <string name="fourPeople">3-4 People</string>
+    <string name="sixPeople">5-6 People</string>
+    <string name="sevenPlus">7+ People</string>
 
 </resources>
