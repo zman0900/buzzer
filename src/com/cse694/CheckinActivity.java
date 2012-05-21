@@ -7,9 +7,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class CheckinActivity extends Activity implements OnClickListener {
+public class CheckinActivity extends Activity
+		implements
+			OnClickListener,
+			OnCheckedChangeListener {
+
+	private PartySizes partySize = PartySizes.ONE_TWO; // default party size
 
 	/** Called when the activity is first created. */
 	@Override
@@ -36,7 +42,7 @@ public class CheckinActivity extends Activity implements OnClickListener {
 		View btnRegister = (Button) findViewById(R.id.registerButton);
 		btnRegister.setOnClickListener(this);
 		RadioGroup radio = (RadioGroup) findViewById(R.id.radioGroup);
-		radio.setOnClickListener(this);
+		radio.setOnCheckedChangeListener(this);
 	}
 
 	@Override
@@ -76,13 +82,31 @@ public class CheckinActivity extends Activity implements OnClickListener {
 				Log.i("Buzzer", "Canceled checkIn");
 				finish();
 				break;
-			case R.id.radioGroup :
-				Log.i("Buzzer", "Radio group clicked");
-
 			case R.id.checkInButton :
 				Log.i("Buzzer", "Checked in");
 				User user = User.getCurrentUser(getApplicationContext());
+				user.check_in(this.getIntent().getStringExtra(
+						"com.cse694.buzzer.RestaurantId"), partySize);
+		}
+	}
 
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch (checkedId) {
+			case 0 :
+				this.partySize = PartySizes.ONE_TWO;
+				break;
+			case 1 :
+				this.partySize = PartySizes.THREE_FOUR;
+				break;
+			case 2 :
+				this.partySize = PartySizes.FIVE_SIX;
+				break;
+			case 3 :
+				this.partySize = PartySizes.SEVEN_PLUS;
+				break;
+			default :
+				this.partySize = PartySizes.ONE_TWO;
 		}
 	}
 
