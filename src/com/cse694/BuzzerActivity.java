@@ -148,18 +148,17 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 		RestaurantItemizedOverlay itemizedoverlay = new RestaurantItemizedOverlay(
 				drawable, this);
 
-		/* TODO: Remove testing code
-		GeoPoint point = new GeoPoint(19240000, -99120000);
-		OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!",
-				"I'm in Mexico City!");
-		itemizedoverlay.addOverlay(overlayitem);
-
-		GeoPoint point2 = new GeoPoint(35410000, 139460000);
-		OverlayItem overlayitem2 = new OverlayItem(point2, "Sekai, konichiwa!",
-				"I'm in Japan!");
-		itemizedoverlay.addOverlay(overlayitem2);
-		// End testing code
-		*/
+		/*
+		 * TODO: Remove testing code GeoPoint point = new GeoPoint(19240000,
+		 * -99120000); OverlayItem overlayitem = new OverlayItem(point,
+		 * "Hola, Mundo!", "I'm in Mexico City!");
+		 * itemizedoverlay.addOverlay(overlayitem);
+		 * 
+		 * GeoPoint point2 = new GeoPoint(35410000, 139460000); OverlayItem
+		 * overlayitem2 = new OverlayItem(point2, "Sekai, konichiwa!",
+		 * "I'm in Japan!"); itemizedoverlay.addOverlay(overlayitem2); // End
+		 * testing code
+		 */
 
 		try {
 			Reader file = new BufferedReader(new FileReader("assets/resDB.txt"));
