@@ -7,7 +7,7 @@ public class User {
 	private String email;
 	private String partyName;
 	private String password;
-	private String checked_in_at;
+	public String checked_in_at;
 	private static LoginDatabaseHelper db;
 	
 

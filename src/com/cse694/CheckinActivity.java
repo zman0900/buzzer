@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
@@ -77,16 +78,17 @@ public class CheckinActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.cancelButtonCHK:
-			Log.i("Buzzer", "Canceled checkIn");
-			finish();
-			break;
-		case R.id.checkInButton:
-			Log.i("Buzzer", "Checked in");
-			User user = User.getCurrentUser(getApplicationContext());
-			user.check_in(
-					this.getIntent().getStringExtra(
-							"com.cse694.buzzer.RestaurantId"), partySize);
+			case R.id.cancelButtonCHK :
+				Log.i("Buzzer", "Canceled checkIn");
+				finish();
+				break;
+			case R.id.checkInButton :
+				Log.i("Buzzer", "Checked in");
+				User user = User.getCurrentUser(getApplicationContext());
+				user.check_in(this.getIntent().getStringExtra(
+						"com.cse694.buzzer.RestaurantId"), partySize);
+				Toast.makeText(this, "You've checked in 4 guests at "+user.checked_in_at+"!", Toast.LENGTH_SHORT).show();
+				finish();
 		}
 	}
 
