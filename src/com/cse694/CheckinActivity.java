@@ -87,24 +87,25 @@ public class CheckinActivity extends Activity implements OnClickListener,
 				User user = User.getCurrentUser(getApplicationContext());
 				user.check_in(this.getIntent().getStringExtra(
 						"com.cse694.buzzer.RestaurantId"), partySize);
-				Toast.makeText(this, "You've checked in 4 guests at "+user.checked_in_at+"!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "You've checked in "+partySize.getNum()+" guests at "+user.checked_in_at+"!", Toast.LENGTH_SHORT).show();
 				finish();
 		}
 	}
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		Log.i("Buzzer", "radio button changed; checkedId = "+checkedId);
 		switch (checkedId) {
-		case 0:
+		case R.id.twoPeople:
 			this.partySize = PartySizes.ONE_TWO;
 			break;
-		case 1:
+		case R.id.fourPeople:
 			this.partySize = PartySizes.THREE_FOUR;
 			break;
-		case 2:
+		case R.id.sixPeople:
 			this.partySize = PartySizes.FIVE_SIX;
 			break;
-		case 3:
+		case R.id.sevenPlus:
 			this.partySize = PartySizes.SEVEN_PLUS;
 			break;
 		default:
