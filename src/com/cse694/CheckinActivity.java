@@ -32,11 +32,9 @@ public class CheckinActivity extends Activity implements OnClickListener,
 		checkingIn.setText(rest.getDescription()
 				+ "\n\nPlease let us know how many people are in your party:");
 
-		View btnLogin = (Button) findViewById(R.id.loginButton);
-		btnLogin.setOnClickListener(this);
-		View btnCancel = (Button) findViewById(R.id.cancelButton);
+		View btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
 		btnCancel.setOnClickListener(this);
-		View btnRegister = (Button) findViewById(R.id.registerButton);
+		View btnRegister = (Button) findViewById(R.id.checkInButton);
 		btnRegister.setOnClickListener(this);
 		RadioGroup radio = (RadioGroup) findViewById(R.id.radioGroup);
 		radio.setOnCheckedChangeListener(this);
@@ -75,16 +73,15 @@ public class CheckinActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.cancelButton:
-			Log.i("Buzzer", "Canceled checkIn");
-			finish();
-			break;
-		case R.id.checkInButton:
-			Log.i("Buzzer", "Checked in");
-			User user = User.getCurrentUser(getApplicationContext());
-			user.check_in(
-					this.getIntent().getStringExtra(
-							"com.cse694.buzzer.RestaurantId"), partySize);
+			case R.id.cancelButtonCHK :
+				Log.i("Buzzer", "Canceled checkIn");
+				finish();
+				break;
+			case R.id.checkInButton :
+				Log.i("Buzzer", "Checked in");
+				User user = User.getCurrentUser(getApplicationContext());
+				user.check_in(this.getIntent().getStringExtra(
+						"com.cse694.buzzer.RestaurantId"), partySize);
 		}
 	}
 

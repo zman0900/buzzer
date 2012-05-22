@@ -68,7 +68,7 @@
             android:text="Check In!" />
 
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/cancelButtonCHK"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
