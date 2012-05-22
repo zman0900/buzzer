@@ -11,10 +11,8 @@ import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class CheckinActivity extends Activity
-		implements
-			OnClickListener,
-			OnCheckedChangeListener {
+public class CheckinActivity extends Activity implements OnClickListener,
+		OnCheckedChangeListener {
 
 	private PartySizes partySize = PartySizes.ONE_TWO; // default party size
 
@@ -25,16 +23,15 @@ public class CheckinActivity extends Activity
 		Log.d("buzzer", "Checkin called onCreate");
 		setContentView(R.layout.checkin);
 
-		TextView restName = (TextView) findViewById(R.id.restaurantName);
-		restName.setText(this.getIntent().getStringExtra(
+		Integer id = Integer.getInteger(this.getIntent().getStringExtra(
 				"com.cse694.buzzer.RestaurantId"));
+		Restaurant rest = Restaurant.getRestaurantById(this, id);
+
+		TextView restName = (TextView) findViewById(R.id.restaurantName);
+		restName.setText(rest.getName());
 		TextView checkingIn = (TextView) findViewById(R.id.checkingInAt);
-		checkingIn
-				.setText("You're checking in at "
-						+ this.getIntent()
-								.getStringExtra(
-										"com.cse694.buzzer.RestaurantID"
-												+ ". Please let us know how many people are in your party:"));
+		checkingIn.setText(rest.getDescription()
+				+ "\n\nPlease let us know how many people are in your party:");
 
 		View btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
 		btnCancel.setOnClickListener(this);
@@ -94,20 +91,20 @@ public class CheckinActivity extends Activity
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		switch (checkedId) {
-			case 0 :
-				this.partySize = PartySizes.ONE_TWO;
-				break;
-			case 1 :
-				this.partySize = PartySizes.THREE_FOUR;
-				break;
-			case 2 :
-				this.partySize = PartySizes.FIVE_SIX;
-				break;
-			case 3 :
-				this.partySize = PartySizes.SEVEN_PLUS;
-				break;
-			default :
-				this.partySize = PartySizes.ONE_TWO;
+		case 0:
+			this.partySize = PartySizes.ONE_TWO;
+			break;
+		case 1:
+			this.partySize = PartySizes.THREE_FOUR;
+			break;
+		case 2:
+			this.partySize = PartySizes.FIVE_SIX;
+			break;
+		case 3:
+			this.partySize = PartySizes.SEVEN_PLUS;
+			break;
+		default:
+			this.partySize = PartySizes.ONE_TWO;
 		}
 	}
 
