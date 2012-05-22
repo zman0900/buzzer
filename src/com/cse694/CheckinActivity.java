@@ -73,15 +73,16 @@ public class CheckinActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.cancelButtonCHK :
-				Log.i("Buzzer", "Canceled checkIn");
-				finish();
-				break;
-			case R.id.checkInButton :
-				Log.i("Buzzer", "Checked in");
-				User user = User.getCurrentUser(getApplicationContext());
-				user.check_in(this.getIntent().getStringExtra(
-						"com.cse694.buzzer.RestaurantId"), partySize);
+		case R.id.cancelButtonCHK:
+			Log.i("Buzzer", "Canceled checkIn");
+			finish();
+			break;
+		case R.id.checkInButton:
+			Log.i("Buzzer", "Checked in");
+			User user = User.getCurrentUser(getApplicationContext());
+			user.check_in(
+					this.getIntent().getStringExtra(
+							"com.cse694.buzzer.RestaurantId"), partySize);
 		}
 	}
 
