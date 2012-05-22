@@ -11,30 +11,34 @@ import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class CheckinActivity extends Activity implements OnClickListener,
-		OnCheckedChangeListener {
+public class CheckinActivity extends Activity
+		implements
+			OnClickListener,
+			OnCheckedChangeListener {
 
 	private PartySizes partySize = PartySizes.ONE_TWO; // default party size
+	private Restaurant restaurant;
 
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("buzzer", "Checkin called onCreate");
 		setContentView(R.layout.checkin);
 
 		String idStr = this.getIntent().getStringExtra(
 				"com.cse694.buzzer.RestaurantId");
 		Integer id = Integer.parseInt(idStr);
-		Restaurant rest = Restaurant.getRestaurantById(this, id);
-		if (rest == null) {
+		restaurant = Restaurant.getRestaurantById(this, id);
+		if (restaurant == null) {
 			Log.d("buzzer", "Restaurant was null!");
 			finish();
 		}
 
 		TextView restName = (TextView) findViewById(R.id.restaurantName);
-		restName.setText(rest.getName());
+		restName.setText(restaurant.getName());
 		TextView checkingIn = (TextView) findViewById(R.id.checkingInAt);
-		checkingIn.setText(rest.getDescription()
+		checkingIn.setText(restaurant.getDescription()
 				+ "\n\nPlease let us know how many people are in your party:");
 
 		View btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
@@ -85,31 +89,34 @@ public class CheckinActivity extends Activity implements OnClickListener,
 			case R.id.checkInButton :
 				Log.i("Buzzer", "Checked in");
 				User user = User.getCurrentUser(getApplicationContext());
-				user.check_in(this.getIntent().getStringExtra(
-						"com.cse694.buzzer.RestaurantId"), partySize);
-				Toast.makeText(this, "You've checked in "+partySize.getNum()+" guests at "+user.checked_in_at+"!", Toast.LENGTH_SHORT).show();
+				user.check_in(restaurant.getId(), partySize);
+				Toast.makeText(
+						this,
+						"You've checked in " + partySize.getNum()
+								+ " guests at " + restaurant.getName() + "!",
+						Toast.LENGTH_SHORT).show();
 				finish();
 		}
 	}
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		Log.i("Buzzer", "radio button changed; checkedId = "+checkedId);
+		Log.i("Buzzer", "radio button changed; checkedId = " + checkedId);
 		switch (checkedId) {
-		case R.id.twoPeople:
-			this.partySize = PartySizes.ONE_TWO;
-			break;
-		case R.id.fourPeople:
-			this.partySize = PartySizes.THREE_FOUR;
-			break;
-		case R.id.sixPeople:
-			this.partySize = PartySizes.FIVE_SIX;
-			break;
-		case R.id.sevenPlus:
-			this.partySize = PartySizes.SEVEN_PLUS;
-			break;
-		default:
-			this.partySize = PartySizes.ONE_TWO;
+			case R.id.twoPeople :
+				this.partySize = PartySizes.ONE_TWO;
+				break;
+			case R.id.fourPeople :
+				this.partySize = PartySizes.THREE_FOUR;
+				break;
+			case R.id.sixPeople :
+				this.partySize = PartySizes.FIVE_SIX;
+				break;
+			case R.id.sevenPlus :
+				this.partySize = PartySizes.SEVEN_PLUS;
+				break;
+			default :
+				this.partySize = PartySizes.ONE_TWO;
 		}
 	}
 
