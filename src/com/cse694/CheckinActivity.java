@@ -95,7 +95,8 @@ public class CheckinActivity extends Activity
 						"You've checked in " + partySize.getNum()
 								+ " guests at " + restaurant.getName() + "!",
 						Toast.LENGTH_SHORT).show();
-				new CheckInWaitTask(this).execute(null);
+				CheckInWaitTask checkInWaitTask = new CheckInWaitTask(this, restaurant.getName());
+				checkInWaitTask.execute((Void) null);
 				finish();
 		}
 	}
