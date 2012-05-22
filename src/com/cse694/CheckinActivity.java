@@ -35,11 +35,9 @@ public class CheckinActivity extends Activity
 										"com.cse694.buzzer.RestaurantID"
 												+ ". Please let us know how many people are in your party:"));
 
-		View btnLogin = (Button) findViewById(R.id.loginButton);
-		btnLogin.setOnClickListener(this);
-		View btnCancel = (Button) findViewById(R.id.cancelButton);
+		View btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
 		btnCancel.setOnClickListener(this);
-		View btnRegister = (Button) findViewById(R.id.registerButton);
+		View btnRegister = (Button) findViewById(R.id.checkInButton);
 		btnRegister.setOnClickListener(this);
 		RadioGroup radio = (RadioGroup) findViewById(R.id.radioGroup);
 		radio.setOnCheckedChangeListener(this);
@@ -78,7 +76,7 @@ public class CheckinActivity extends Activity
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.cancelButton :
+			case R.id.cancelButtonCHK :
 				Log.i("Buzzer", "Canceled checkIn");
 				finish();
 				break;
