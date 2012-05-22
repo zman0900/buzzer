@@ -7,7 +7,7 @@ public class User {
 	private String email;
 	private String partyName;
 	private String password;
-	public String checked_in_at;
+	public Integer checkedInAtId;
 	private static LoginDatabaseHelper db;
 	
 
@@ -41,8 +41,8 @@ public class User {
 		return ans;
 	}
 
-	public boolean check_in(String rest, PartySizes partySize) {
-		this.checked_in_at = rest;
+	public boolean check_in(Integer restaurantId, PartySizes partySize) {
+		this.checkedInAtId = restaurantId;
 		return true;
 	}
 
@@ -53,7 +53,7 @@ public class User {
 		} else {
 			ans = false;
 		}
-		this.checked_in_at = null;
+		this.checkedInAtId = null;
 		return ans;
 	}
 }

@@ -15,6 +15,7 @@ public class CheckinActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener {
 
 	private PartySizes partySize = PartySizes.ONE_TWO; // default party size
+	private Restaurant restaurant;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -26,16 +27,16 @@ public class CheckinActivity extends Activity implements OnClickListener,
 		String idStr = this.getIntent().getStringExtra(
 				"com.cse694.buzzer.RestaurantId");
 		Integer id = Integer.parseInt(idStr);
-		Restaurant rest = Restaurant.getRestaurantById(this, id);
-		if (rest == null) {
+		restaurant = Restaurant.getRestaurantById(this, id);
+		if (restaurant == null) {
 			Log.d("buzzer", "Restaurant was null!");
 			finish();
 		}
 
 		TextView restName = (TextView) findViewById(R.id.restaurantName);
-		restName.setText(rest.getName());
+		restName.setText(restaurant.getName());
 		TextView checkingIn = (TextView) findViewById(R.id.checkingInAt);
-		checkingIn.setText(rest.getDescription()
+		checkingIn.setText(restaurant.getDescription()
 				+ "\n\nPlease let us know how many people are in your party:");
 
 		View btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
@@ -79,17 +80,19 @@ public class CheckinActivity extends Activity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.cancelButtonCHK :
-				Log.i("Buzzer", "Canceled checkIn");
-				finish();
-				break;
-			case R.id.checkInButton :
-				Log.i("Buzzer", "Checked in");
-				User user = User.getCurrentUser(getApplicationContext());
-				user.check_in(this.getIntent().getStringExtra(
-						"com.cse694.buzzer.RestaurantId"), partySize);
-				Toast.makeText(this, "You've checked in 4 guests at "+user.checked_in_at+"!", Toast.LENGTH_SHORT).show();
-				finish();
+		case R.id.cancelButtonCHK:
+			Log.i("Buzzer", "Canceled checkIn");
+			finish();
+			break;
+		case R.id.checkInButton:
+			Log.i("Buzzer", "Checked in");
+			User user = User.getCurrentUser(getApplicationContext());
+			user.check_in(restaurant.getId(), partySize);
+			Toast.makeText(
+					this,
+					"You've checked in 4 guests at " + restaurant.getName()
+							+ "!", Toast.LENGTH_SHORT).show();
+			finish();
 		}
 	}
 
