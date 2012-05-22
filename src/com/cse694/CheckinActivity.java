@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
@@ -85,6 +86,8 @@ public class CheckinActivity extends Activity
 				User user = User.getCurrentUser(getApplicationContext());
 				user.check_in(this.getIntent().getStringExtra(
 						"com.cse694.buzzer.RestaurantId"), partySize);
+				Toast.makeText(this, "You've checked in 4 guests at "+user.checked_in_at+"!", Toast.LENGTH_SHORT).show();
+				finish();
 		}
 	}
 
