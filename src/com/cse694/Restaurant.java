@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 public class Restaurant {
 
@@ -86,7 +87,7 @@ public class Restaurant {
 		return false;
 	}
 
-	public Restaurant getRestaurantById(Context ctx, int id) {
+	public static Restaurant getRestaurantById(Context ctx, int id) {
 		if (restaurants == null) {
 			try {
 				loadRestaurants(ctx);
@@ -98,7 +99,7 @@ public class Restaurant {
 		return restaurants.get(id);
 	}
 	
-	public List<Restaurant> getAllRestaurants(Context ctx) {
+	public static List<Restaurant> getAllRestaurants(Context ctx) {
 		if (restaurants == null) {
 			try {
 				loadRestaurants(ctx);
@@ -126,6 +127,7 @@ public class Restaurant {
 			restaurants = new HashMap<Integer, Restaurant>(allRest.length());
 			for (int i = 0; i < allRest.length(); i++) {
 				JSONObject jrest = allRest.getJSONObject(i);
+				jrest = jrest.getJSONObject("restaurant");
 				// Build restaurant
 				Restaurant rest = new Restaurant();
 				rest.setId(jrest.getInt("id"));
@@ -139,6 +141,13 @@ public class Restaurant {
 			e.printStackTrace();
 			return;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Restaurant [id=" + id + ", name=" + name + ", description="
+				+ description + ", latitude=" + latitude + ", longitude="
+				+ longitude + "]";
 	}
 
 }
