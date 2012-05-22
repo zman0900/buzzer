@@ -20,6 +20,7 @@ public class CheckinActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("buzzer", "Checkin called onCreate");
 		setContentView(R.layout.checkin);
 
 		String idStr = this.getIntent().getStringExtra(
