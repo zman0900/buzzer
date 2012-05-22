@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.sax.StartElementListener;
+import android.util.Log;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
@@ -33,11 +34,6 @@ public class RestaurantItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	@Override
 	protected boolean onTap(int index) {
 		OverlayItem item = overlays.get(index);
-		//AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-		//dialog.setTitle(item.getTitle());
-		//dialog.setMessage(item.getSnippet());
-		//dialog.show();
-		
 		Intent i = new Intent(context, CheckinActivity.class);
 		i.putExtra("com.cse694.buzzer.RestaurantId", item.getSnippet());
 		context.startActivity(i);

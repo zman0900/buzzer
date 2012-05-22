@@ -19,12 +19,16 @@ public class CheckinActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("buzzer", "Checkin called onCreate");
 		setContentView(R.layout.checkin);
 
-		Integer id = Integer.getInteger(this.getIntent().getStringExtra(
-				"com.cse694.buzzer.RestaurantId"));
+		String idStr = this.getIntent().getStringExtra(
+				"com.cse694.buzzer.RestaurantId");
+		Integer id = Integer.parseInt(idStr);
 		Restaurant rest = Restaurant.getRestaurantById(this, id);
+		if (rest == null) {
+			Log.d("buzzer", "Restaurant was null!");
+			finish();
+		}
 
 		TextView restName = (TextView) findViewById(R.id.restaurantName);
 		restName.setText(rest.getName());

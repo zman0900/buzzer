@@ -87,7 +87,9 @@ public class Restaurant {
 		return false;
 	}
 
-	public static Restaurant getRestaurantById(Context ctx, int id) {
+	public static Restaurant getRestaurantById(Context ctx, Integer id) {
+		if (id == null || !restaurants.containsKey(id))
+			return null;
 		if (restaurants == null) {
 			try {
 				loadRestaurants(ctx);
