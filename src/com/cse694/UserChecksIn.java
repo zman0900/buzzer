@@ -1,7 +1,10 @@
 package com.cse694;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -95,8 +98,8 @@ public class UserChecksIn extends Activity
 						"You've checked in " + partySize.getNum()
 								+ " guests at " + restaurant.getName() + "!",
 						Toast.LENGTH_SHORT).show();
-				CheckInWaitTask checkInWaitTask = new CheckInWaitTask(this, restaurant.getName());
-				checkInWaitTask.execute((Void) null);
+				CheckInWaitTask checkInWaitTask = new CheckInWaitTask();
+				checkInWaitTask.execute(this);
 				finish();
 		}
 	}
@@ -117,8 +120,6 @@ public class UserChecksIn extends Activity
 			case R.id.sevenPlus :
 				this.partySize = PartySizes.SEVEN_PLUS;
 				break;
-			default :
-				this.partySize = PartySizes.ONE_TWO;
 		}
 	}
 

@@ -131,11 +131,16 @@ public class UserChoosesRestaurant extends MapActivity implements OnClickListene
 	}
 
 	private void recenterMap() {
-		mapController.setZoom(MAP_ZOOM);
-		GeoPoint myGeoPoint = new GeoPoint((int) (myLocationOverlay
-				.getLastFix().getLatitude() * 1000000),
-				(int) (myLocationOverlay.getLastFix().getLongitude() * 1000000));
-		mapController.animateTo(myGeoPoint);
+		try {
+			mapController.setZoom(MAP_ZOOM);
+			GeoPoint myGeoPoint = new GeoPoint((int) (myLocationOverlay
+					.getLastFix().getLatitude() * 1000000),
+					(int) (myLocationOverlay.getLastFix().getLongitude() * 1000000));
+			mapController.animateTo(myGeoPoint);
+		} catch (NullPointerException e) {
+			Toast.makeText(this, "Location services not available.", Toast.LENGTH_SHORT).show();
+			Log.i("buzzer", "NullPointerException caught in UserChoosesRestaurant.recenterMap()");
+		}
 	}
 
 	private void addOverlays() {
