@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class UserLogsIn extends Activity implements OnClickListener {
 	
 	public static final String LOGIN_STORE = "LoginStore";
 	
@@ -67,7 +67,7 @@ public class LoginActivity extends Activity implements OnClickListener {
   			break;
   		case R.id.registerButton:
   			Log.i("Buzzer","Show register view");
-  			startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+  			startActivity(new Intent(UserLogsIn.this,UserRegisters.class));
   			break;
 		}
 	}
@@ -87,7 +87,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			editor.commit();
 			
 			finish();
-			startActivity(new Intent(LoginActivity.this,BuzzerActivity.class));
+			startActivity(new Intent(UserLogsIn.this,UserChoosesRestaurant.class));
 		} else {
 			Toast.makeText(this, "Login not valid!", Toast.LENGTH_SHORT).show();
 		}
