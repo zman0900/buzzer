@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class BuzzerActivity extends MapActivity implements OnClickListener {
+public class UserChoosesRestaurant extends MapActivity implements OnClickListener {
 
 	private static final int MAP_ZOOM = 18;
 
@@ -42,7 +42,7 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 				SharedPreferences settings = getSharedPreferences("LoginStore",
 						MODE_PRIVATE);
 				String onTapText = settings.getString("name", "You Fail!");
-				Toast.makeText(BuzzerActivity.this, onTapText,
+				Toast.makeText(UserChoosesRestaurant.this, onTapText,
 						Toast.LENGTH_SHORT).show();
 				ans = true;
 			}
@@ -58,10 +58,10 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 		setContentView(R.layout.main);
 
 		// Check for login
-		if (!LoginActivity.isLoggedIn(this)) {
+		if (!UserLogsIn.isLoggedIn(this)) {
 			Log.i("buzzer", "Not logged in");
 			finish();
-			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
+			startActivity(new Intent(UserChoosesRestaurant.this, UserLogsIn.class));
 		}
 
 		View btnLogout = findViewById(R.id.logoutButton);
@@ -160,9 +160,9 @@ public class BuzzerActivity extends MapActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.logoutButton:
-			LoginActivity.logout(this);
+			UserLogsIn.logout(this);
 			finish();
-			startActivity(new Intent(BuzzerActivity.this, LoginActivity.class));
+			startActivity(new Intent(UserChoosesRestaurant.this, UserLogsIn.class));
 			break;
 		case R.id.recenterButton:
 			recenterMap();

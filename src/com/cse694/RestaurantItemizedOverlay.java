@@ -31,7 +31,7 @@ public class RestaurantItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	@Override
 	protected boolean onTap(int index) {
 		OverlayItem item = overlays.get(index);
-		Intent i = new Intent(context, CheckinActivity.class);
+		Intent i = new Intent(context, UserChecksIn.class);
 		i.putExtra("com.cse694.buzzer.RestaurantId", item.getSnippet());
 		context.startActivity(i);
 		

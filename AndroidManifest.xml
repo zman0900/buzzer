@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name=".BuzzerActivity"
+            android:name=".UserChoosesRestaurant"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:label="@string/app_name">
+        <activity android:name=".UserLogsIn" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="com.cse694.LoginActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" android:label="@string/app_name">
+        <activity android:name=".UserRegisters" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="com.cse694.RegisterActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".CheckinActivity" android:label="@string/app_name">
+        <activity android:name=".UserChecksIn" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="com.cse694.CheckinActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>

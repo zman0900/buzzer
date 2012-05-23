@@ -11,7 +11,7 @@ import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class CheckinActivity extends Activity
+public class UserChecksIn extends Activity
 		implements
 			OnClickListener,
 			OnCheckedChangeListener {
