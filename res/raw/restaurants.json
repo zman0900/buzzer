@@ -5,8 +5,8 @@
                 "id": 0,
                 "name": "Chipotle",
                 "desc": "Delicious burrito joint!",
-                "lat": 19240000,
-                "lon": -99120000
+                "lat": 39997635,
+                "lon": -83007602
             }
         },
         {
@@ -14,9 +14,81 @@
                 "id": 1,
                 "name": "Genji",
                 "desc": "Wonderful Japanese steakhouse!",
-                "lat": 35410000,
-                "lon": 139460000
+                "lat": 40087478,
+                "lon": -83091888
             }
+        },
+        {
+        	"restaurant": {
+        		"id": 2,
+        		"name": "Taco Bell",
+        		"desc": "Shitty fast mexican food!",
+        		"lat": 39993383,
+        		"lon": -83006754
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 3,
+        		"name": "Pita Pit",
+        		"desc": "A fulfilling healthy alternative!",
+        		"lat": 40002875,
+        		"lon": -83008621
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 4,
+        		"name": "J Gumbos",
+        		"desc": "A cajun treat!",
+        		"lat": 4000294,
+        		"lon": -83008627
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 5,
+        		"name": "McDonalds",
+        		"desc": "Shitty fast american food",
+        		"lat": 40002642,
+        		"lon": -83008573
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 6,
+        		"name": "La Bamba",
+        		"desc": "Burritos as big as your head!",
+        		"lat": 40002198,
+        		"lon": -83008485
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 7,
+        		"name": "Tweeters",
+        		"desc": "Tasty chicken wings for delivery",
+        		"lat": 39995484,
+        		"lon": -83001673
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 8,
+        		"name": "Buffalo Wild Wings",
+        		"desc": "Wings, beer, sports",
+        		"lat": 40006152,
+        		"lon": -83009288
+        	}
+        },
+        {
+        	"restaurant": {
+        		"id": 9,
+        		"name": "Press Grill",
+        		"desc": "Reasonably priced, delicious food",
+        		"lat": 39977602,
+        		"lon": -83003647
+        	}
         }
     ]
 }
