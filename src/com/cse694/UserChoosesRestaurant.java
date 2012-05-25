@@ -9,10 +9,14 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,6 +66,27 @@ public class UserChoosesRestaurant extends MapActivity implements OnClickListene
 			Log.i("buzzer", "Not logged in");
 			finish();
 			startActivity(new Intent(UserChoosesRestaurant.this, UserLogsIn.class));
+		}
+		
+		ConnectivityManager cm = (ConnectivityManager) this
+				.getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		if (activeNetwork == null || !activeNetwork.isConnectedOrConnecting()) {
+			Toast.makeText(this,
+					"Your device is not connected to the internet!",
+					Toast.LENGTH_LONG).show();
+		}
+		
+		// Check for c2dm registration
+		if (((BuzzerApplication)this.getApplicationContext()).getRegId() == null) {
+			// Create registration intent
+	        Intent regIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
+	        // Identify your app
+	        regIntent.putExtra("app", PendingIntent.getBroadcast(UserChoosesRestaurant.this, 0, new Intent(), 0));
+	        // Identify role account server will use to send
+	        regIntent.putExtra("sender", "buzzerappc2dm@gmail.com");
+	        // Start the registration process
+	        startService(regIntent);
 		}
 
 		View btnLogout = findViewById(R.id.logoutButton);

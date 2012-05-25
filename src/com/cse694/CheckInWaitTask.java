@@ -1,12 +1,9 @@
 package com.cse694;
 
-import javax.xml.transform.Result;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 public class CheckInWaitTask extends AsyncTask<Context, Void, Void> {
 
