@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * @author liuisaac
- *
  * This class is used to store the shared information in this app. In this case
  * it's the shared preferences
  */
