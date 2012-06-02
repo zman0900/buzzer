@@ -63,7 +63,7 @@ public class UserChecksIn extends Activity implements OnClickListener,
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Log.d("buzzer", "Checkincalled onSaveInstanceState");
+		Log.d("buzzer", "Checkin called onSaveInstanceState");
 	}
 
 	@Override
