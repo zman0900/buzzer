@@ -5,14 +5,24 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="10" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.cse694.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.cse694.permission.C2D_MESSAGE" />
 
     <application
+        android:name=".BuzzerApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
         <activity
             android:name=".UserChoosesRestaurant"
             android:label="@string/app_name" >
@@ -22,25 +32,52 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserLogsIn" android:label="@string/app_name">
+        <activity
+            android:name=".UserLogsIn"
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="com.cse694.LoginActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.cse694.LoginActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserRegisters" android:label="@string/app_name">
+        <activity
+            android:name=".UserRegisters"
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="com.cse694.RegisterActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.cse694.RegisterActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserChecksIn" android:label="@string/app_name">
+        <activity
+            android:name=".UserChecksIn"
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="com.cse694.CheckinActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.cse694.CheckinActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <uses-library android:name="com.google.android.maps" android:required="true"/>
+
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="true" />
+
+        <receiver
+            android:name=".C2DMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.cse694" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.cse694" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

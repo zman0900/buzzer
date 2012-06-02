@@ -49,19 +49,19 @@ public class UserRegisters extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.registerCancelButton :
-				finish();
-				break;
-			case R.id.registerButton :
-				Log.i("Buzzer", "Perform register");
-				register();
-				break;
+		case R.id.registerCancelButton:
+			finish();
+			break;
+		case R.id.registerButton:
+			Log.i("Buzzer", "Perform register");
+			register();
+			break;
 		}
 	}
 
 	public void register() {
-//		LoginDatabaseHelper db = new LoginDatabaseHelper(
-//				getApplicationContext());
+		// LoginDatabaseHelper db = new LoginDatabaseHelper(
+		// getApplicationContext());
 		EditText email = (EditText) findViewById(R.id.registerEmail);
 		EditText partyName = (EditText) findViewById(R.id.registerPartyName);
 		EditText pass = (EditText) findViewById(R.id.registerPassword);
@@ -76,11 +76,11 @@ public class UserRegisters extends Activity implements OnClickListener {
 					&& partyName.getText().length() > 2
 					&& pass.getText().length() > 4) {
 				User user = new User(partyName.getText().toString(), email
-						.getText().toString(), pass.getText().toString(),
+						.getText().toString(), pass.getText().toString(), -1,
 						getApplicationContext());
 				user.register();
-//				db.insertUser(email.getText().toString(), partyName.getText()
-//						.toString(), pass.getText().toString());
+				// db.insertUser(email.getText().toString(), partyName.getText()
+				// .toString(), pass.getText().toString());
 				finish();
 			} else {
 				// Fields not filled or too short
