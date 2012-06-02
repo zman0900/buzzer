@@ -99,8 +99,8 @@ public class UserChecksIn extends Activity implements OnClickListener,
 			break;
 		case R.id.checkInButton:
 			Log.i("Buzzer", "Checked in");
-			User user = User.getCurrentUser(getApplicationContext());
-			user.check_in(restaurant.getId(), partySize);
+			User user = User.getCurrentUser(this);
+			user.check_in(restaurant.getId(), partySize, this);
 			Toast.makeText(
 					this,
 					"Checking in " + partySize.getNum() + " guests at "
