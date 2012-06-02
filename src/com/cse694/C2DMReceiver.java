@@ -105,7 +105,7 @@ public class C2DMReceiver extends BroadcastReceiver {
 		// notification is clicked
 		// TODO: Create a new activity to display when user's seat is ready
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, -1,
-				new Intent(context, UserChoosesRestaurant.class),
+				new Intent(context, UserAcceptsSeat.class),
 				PendingIntent.FLAG_UPDATE_CURRENT); //
 		notification.when = System.currentTimeMillis();
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
