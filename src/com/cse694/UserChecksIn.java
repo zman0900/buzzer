@@ -38,6 +38,7 @@ public class UserChecksIn extends Activity implements OnClickListener,
 		restName.setText(restaurant.getName());
 		TextView description = (TextView) findViewById(R.id.description);
 		description.setText(restaurant.getDescription());
+		TextView info = (TextView) findViewById(R.id.infoText);
 
 		Button btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
 		btnCancel.setOnClickListener(this);
@@ -54,6 +55,7 @@ public class UserChecksIn extends Activity implements OnClickListener,
 			TextView message = (TextView) findViewById(R.id.message);
 			message.setText(R.string.alreadyCheckedIn);
 			btnRegister.setText(R.string.cancelCheckinBtn);
+			info.setVisibility(View.GONE);
 		}
 	}
 

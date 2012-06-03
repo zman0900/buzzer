@@ -84,6 +84,16 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/radioGroup"
             android:text="Cancel" />
+
+        <TextView
+            android:id="@+id/infoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/checkInButton"
+            android:text="@string/checkinInfo"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -25,5 +25,6 @@
     <string name="checkinMessage">Please let us know how many people are in your party:</string>
     <string name="alreadyCheckedIn">You\'re already checked in at this location.</string>
     <string name="cancelCheckinBtn">Cancel Checkin</string>
+    <string name="checkinInfo">NOTE: If you are already checked in at another location, checking in here will result in the forfeiture of your other table.</string>
 
 </resources>
