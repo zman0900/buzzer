@@ -1,20 +1,7 @@
 package com.cse694;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -100,15 +87,13 @@ public class UserChecksIn extends Activity implements OnClickListener,
 		case R.id.checkInButton:
 			Log.i("Buzzer", "Checked in");
 			User user = User.getCurrentUser(this);
-			user.check_in(restaurant.getId(), partySize, this);
 			Toast.makeText(
 					this,
 					"Checking in " + partySize.getNum() + " guests at "
 							+ restaurant.getName() + "...", Toast.LENGTH_LONG)
 					.show();
-			// CheckInWaitTask checkInWaitTask = new CheckInWaitTask();
-			// checkInWaitTask.execute(this);
-			sendJson();
+			user.checkIn(restaurant.getId(), partySize, this);
+			finish();
 		}
 	}
 
@@ -131,60 +116,4 @@ public class UserChecksIn extends Activity implements OnClickListener,
 		}
 	}
 
-	protected void sendJson() {
-		final String regId = ((BuzzerApplication) this.getApplicationContext())
-				.getRegId();
-		ConnectivityManager cm = (ConnectivityManager) this
-				.getSystemService(CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-		if (activeNetwork == null || !activeNetwork.isConnectedOrConnecting()) {
-			Toast.makeText(this,
-					"Your device is not connected to the internet!",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
-		if (regId == null) {
-			Toast.makeText(
-					this,
-					"Your device could not register for push notifications, please try again",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
-		Thread t = new Thread() {
-			public void run() {
-				Looper.prepare(); // For Preparing Message Pool for the
-									// child Thread
-				HttpClient client = new DefaultHttpClient();
-				HttpConnectionParams.setConnectionTimeout(client.getParams(),
-						10000); // Timeout Limit
-				HttpResponse response;
-				JSONObject json = new JSONObject();
-				try {
-					HttpPost post = new HttpPost(
-							"http://zman0900.no-ip.com:3000/checkins.json");
-					json.put("restaurant_id", restaurant.getId());
-					json.put("device_reg", regId);
-					StringEntity se = new StringEntity(json.toString());
-					se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
-							"application/json"));
-					post.setEntity(se);
-					response = client.execute(post);
-					/* Checking response */
-					if (response != null) {
-						// Assume success
-						Toast.makeText(getApplicationContext(),
-								"Check-in Successful", Toast.LENGTH_LONG)
-								.show();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					Toast.makeText(getApplicationContext(), "Check-in failed!",
-							Toast.LENGTH_LONG).show();
-				}
-				Looper.loop(); // Loop in the message queue
-			}
-		};
-		t.start();
-		finish();
-	}
 }
