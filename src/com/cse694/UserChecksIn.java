@@ -48,7 +48,7 @@ public class UserChecksIn extends Activity implements OnClickListener,
 		
 		User user = User.getCurrentUser(this);
 		if (user.getCheckedInAtId() != null && user.getCheckedInAtId() == id) {
-			// User alread checked in here
+			// User already checked in here
 			checkedIn = true;
 			radio.setVisibility(View.GONE);
 			TextView message = (TextView) findViewById(R.id.message);
