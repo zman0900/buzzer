@@ -53,6 +53,7 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 							"You have forfeited your table for at "
 									+ rest.getName() + ".", Toast.LENGTH_LONG)
 							.show();
+					Log.i("buzzer", "User declined seat.");
 					finish();
 				}
 			});
@@ -70,6 +71,7 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 					"You have accepted your table for at " + rest.getName()
 							+ ". Please make your way to the restaurant.",
 					Toast.LENGTH_LONG).show();
+			Log.i("buzzer", "User declined seat.");
 			finish();
 		}
 	}
