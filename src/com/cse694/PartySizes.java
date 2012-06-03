@@ -4,7 +4,7 @@ public enum PartySizes {
 	ONE_TWO, THREE_FOUR, FIVE_SIX, SEVEN_PLUS;
 
 	public String getNum() {
-		String ans;
+		String ans = "\b";
 		switch (this) {
 			case ONE_TWO :
 				ans = "1-2";
@@ -17,8 +17,6 @@ public enum PartySizes {
 				break;
 			case SEVEN_PLUS :
 				ans = "7+";
-			default :
-				ans = "1-2";
 		}
 		return ans;
 	}

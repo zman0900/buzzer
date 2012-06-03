@@ -68,7 +68,7 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 			currentUser.accept_seat(rest, accept, this);
 			Toast.makeText(
 					getApplicationContext(),
-					"You have accepted your table for at " + rest.getName()
+					"You have accepted your table at " + rest.getName()
 							+ ". Please make your way to the restaurant.",
 					Toast.LENGTH_LONG).show();
 			Log.i("buzzer", "User declined seat.");
