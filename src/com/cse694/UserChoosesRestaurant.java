@@ -49,6 +49,10 @@ public class UserChoosesRestaurant extends MapActivity implements
 				String onTapText = settings.getString("name", "You Fail!");
 				Toast.makeText(UserChoosesRestaurant.this, onTapText,
 						Toast.LENGTH_SHORT).show();
+				if (BuzzerApplication.userSeatReady) {
+					startActivity(new Intent(UserChoosesRestaurant.this,
+							UserAcceptsSeat.class));
+				}
 				ans = true;
 			}
 			return ans;

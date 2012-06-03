@@ -103,7 +103,6 @@ public class C2DMReceiver extends BroadcastReceiver {
 
 		// Create a pending intent to call the Activity when the
 		// notification is clicked
-		// TODO: Create a new activity to display when user's seat is ready
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, -1,
 				new Intent(context, UserAcceptsSeat.class),
 				PendingIntent.FLAG_UPDATE_CURRENT); //
@@ -116,6 +115,7 @@ public class C2DMReceiver extends BroadcastReceiver {
 		// Trigger the notification
 		notificationManager.notify(0, notification);
 		playNotificationSound(context);
+		BuzzerApplication.userSeatReady = true;
 	}
 
 	public static void playNotificationSound(Context context) {

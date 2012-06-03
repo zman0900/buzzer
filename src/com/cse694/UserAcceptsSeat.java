@@ -2,6 +2,8 @@ package com.cse694;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,7 +55,12 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 							"You have forfeited your table at "
 									+ rest.getName() + ".", Toast.LENGTH_LONG)
 							.show();
-					Log.i("buzzer", "User declined seat at " + rest.getName() + ".");
+					Log.i("buzzer", "User declined seat at " + rest.getName()
+							+ ".");
+					BuzzerApplication.userSeatReady = false;
+					NotificationManager notificationManager = (NotificationManager) getApplicationContext()
+							.getSystemService(Context.NOTIFICATION_SERVICE);
+					notificationManager.cancel(0);
 					finish();
 				}
 			});
@@ -72,6 +79,10 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 							+ ". Please make your way to the restaurant.",
 					Toast.LENGTH_LONG).show();
 			Log.i("buzzer", "User accepted seat at " + rest.getName() + ".");
+			BuzzerApplication.userSeatReady = false;
+			NotificationManager notificationManager = (NotificationManager) this
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+			notificationManager.cancel(0);
 			finish();
 		}
 	}

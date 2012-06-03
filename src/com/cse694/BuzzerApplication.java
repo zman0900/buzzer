@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 public class BuzzerApplication extends Application {
 	
 	private SharedPreferences prefs;
+	public static boolean userSeatReady = false;
 	
 	@Override
 	public void onCreate() {
