@@ -19,7 +19,7 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("buzzer", "UserAcceptsSeat called onCreate");
+		Log.d("buzzer", "userAcceptsSeat called onCreate");
 		setContentView(R.layout.acceptseat);
 
 		View btnAccept = (Button) findViewById(R.id.acceptSeatBtn);
@@ -71,7 +71,7 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 					"You have accepted your table at " + rest.getName()
 							+ ". Please make your way to the restaurant.",
 					Toast.LENGTH_LONG).show();
-			Log.i("buzzer", "User declined seat.");
+			Log.i("buzzer", "User accepted seat.");
 			finish();
 		}
 	}
