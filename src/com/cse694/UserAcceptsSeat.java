@@ -50,10 +50,10 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 							getApplicationContext());
 					Toast.makeText(
 							getApplicationContext(),
-							"You have forfeited your table for at "
+							"You have forfeited your table at "
 									+ rest.getName() + ".", Toast.LENGTH_LONG)
 							.show();
-					Log.i("buzzer", "User declined seat.");
+					Log.i("buzzer", "User declined seat at " + rest.getName() + ".");
 					finish();
 				}
 			});
@@ -71,7 +71,7 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 					"You have accepted your table at " + rest.getName()
 							+ ". Please make your way to the restaurant.",
 					Toast.LENGTH_LONG).show();
-			Log.i("buzzer", "User accepted seat.");
+			Log.i("buzzer", "User accepted seat at " + rest.getName() + ".");
 			finish();
 		}
 	}
