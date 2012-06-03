@@ -129,6 +129,10 @@ public class User {
 		
 		return;
 	}
+	
+	public void cancelCheckin() {
+		Log.d("buzzer","Checkin canceled");
+	}
 
 	public boolean accept_seat(Restaurant rest, boolean accept, Context context) {
 		boolean ans = true;

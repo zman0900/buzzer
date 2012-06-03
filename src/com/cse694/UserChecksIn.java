@@ -16,6 +16,7 @@ public class UserChecksIn extends Activity implements OnClickListener,
 
 	private PartySizes partySize = PartySizes.ONE_TWO; // default party size
 	private Restaurant restaurant;
+	private boolean checkedIn = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -35,16 +36,25 @@ public class UserChecksIn extends Activity implements OnClickListener,
 
 		TextView restName = (TextView) findViewById(R.id.restaurantName);
 		restName.setText(restaurant.getName());
-		TextView checkingIn = (TextView) findViewById(R.id.checkingInAt);
-		checkingIn.setText(restaurant.getDescription()
-				+ "\n\nPlease let us know how many people are in your party:");
+		TextView description = (TextView) findViewById(R.id.description);
+		description.setText(restaurant.getDescription());
 
-		View btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
+		Button btnCancel = (Button) findViewById(R.id.cancelButtonCHK);
 		btnCancel.setOnClickListener(this);
-		View btnRegister = (Button) findViewById(R.id.checkInButton);
+		Button btnRegister = (Button) findViewById(R.id.checkInButton);
 		btnRegister.setOnClickListener(this);
 		RadioGroup radio = (RadioGroup) findViewById(R.id.radioGroup);
 		radio.setOnCheckedChangeListener(this);
+		
+		User user = User.getCurrentUser(this);
+		if (user.getCheckedInAtId() != null && user.getCheckedInAtId() == id) {
+			// User alread checked in here
+			checkedIn = true;
+			radio.setVisibility(View.GONE);
+			TextView message = (TextView) findViewById(R.id.message);
+			message.setText(R.string.alreadyCheckedIn);
+			btnRegister.setText(R.string.cancelCheckinBtn);
+		}
 	}
 
 	@Override
@@ -81,19 +91,25 @@ public class UserChecksIn extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.cancelButtonCHK:
-			Log.i("Buzzer", "Canceled checkIn");
+			Log.d("buzzer", "Canceled checkIn screen");
 			finish();
 			break;
 		case R.id.checkInButton:
-			Log.i("Buzzer", "Checked in");
 			User user = User.getCurrentUser(this);
-			Toast.makeText(
-					this,
-					"Checking in " + partySize.getNum() + " guests at "
-							+ restaurant.getName() + "...", Toast.LENGTH_LONG)
-					.show();
-			user.checkIn(restaurant.getId(), partySize, this);
-			finish();
+			if (checkedIn) {
+				Log.d("buzzer", "Canceling checkin");
+				user.cancelCheckin();
+				finish();
+			} else {
+				Log.d("buzzer", "Checking in");
+				Toast.makeText(
+						this,
+						"Checking in " + partySize.getNum() + " guests at "
+								+ restaurant.getName() + "...",
+						Toast.LENGTH_LONG).show();
+				user.checkIn(restaurant.getId(), partySize, this);
+				finish();
+			}
 		}
 	}
 
