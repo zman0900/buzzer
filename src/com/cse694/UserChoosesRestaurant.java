@@ -146,7 +146,6 @@ public class UserChoosesRestaurant extends MapActivity implements
 
 		// add location overlay to the MapView and refresh it
 		mapView.getOverlays().add(myLocationOverlay);
-		mapView.postInvalidate();
 
 		// Add restaurant overlays
 		addOverlays();
@@ -155,6 +154,7 @@ public class UserChoosesRestaurant extends MapActivity implements
 		if (myLocationOverlay != null) {
 			myLocationOverlay.enableMyLocation();
 		}
+		mapView.postInvalidate();
 	}
 
 	@Override
@@ -207,7 +207,6 @@ public class UserChoosesRestaurant extends MapActivity implements
 			itemizedoverlay.addOverlay(restOverlay);
 		}
 		mapOverlays.add(itemizedoverlay);
-		mapView.postInvalidate();
 	}
 
 	@Override
