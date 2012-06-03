@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -44,6 +45,20 @@ public class Util {
 		}
 		
 		return responseStr;
+	}
+	
+	public static void delete(String url) {
+		HttpClient client = new DefaultHttpClient();
+		HttpConnectionParams.setConnectionTimeout(client.getParams(),
+				10000);
+		try {
+			HttpDelete delete = new HttpDelete(url);
+			Log.d("buzzer","Sending delete to: " + url);
+			client.execute(delete);
+		} catch (Exception e) {
+			Log.e("buzzer", "Error sending DELETE");
+			e.printStackTrace();
+		}
 	}
 	
 	private static String readStreamAsString(InputStream in) {

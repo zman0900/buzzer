@@ -2,6 +2,8 @@ package com.cse694;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -100,7 +102,7 @@ public class UserChecksIn extends Activity implements OnClickListener,
 			User user = User.getCurrentUser(this);
 			if (checkedIn) {
 				Log.d("buzzer", "Canceling checkin");
-				user.cancelCheckin();
+				user.cancelCheckin(this);
 				finish();
 			} else {
 				Log.d("buzzer", "Checking in");
@@ -109,8 +111,14 @@ public class UserChecksIn extends Activity implements OnClickListener,
 						"Checking in " + partySize.getNum() + " guests at "
 								+ restaurant.getName() + "...",
 						Toast.LENGTH_LONG).show();
-				user.checkIn(restaurant.getId(), partySize, this);
-				finish();
+				// This gets called when checkin is complete to close view
+				Handler handler = new Handler() {
+					@Override
+					public void handleMessage(Message msg) {
+						finish();
+					}
+				};
+				user.checkIn(restaurant.getId(), partySize, this, handler);
 			}
 		}
 	}

@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/radioGroup"
-            android:text="@string/acceptBtn" />
+            android:text="@string/checkIn" />
 
         <Button
             android:id="@+id/cancelButtonCHK"
