@@ -84,6 +84,7 @@ public class UserLogsIn extends Activity implements OnClickListener {
 			editor.putString("password", password.getText().toString());
 			editor.putString("name", db.getNameFromEmail(email.getText().toString()));
 			editor.putInt("checkedInAt", -1);
+			editor.putInt("checkinId", -1);
 			editor.putBoolean("loggedin", true);
 			editor.commit();
 			

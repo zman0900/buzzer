@@ -76,7 +76,7 @@ public class UserRegisters extends Activity implements OnClickListener {
 					&& partyName.getText().length() > 2
 					&& pass.getText().length() > 4) {
 				User user = new User(partyName.getText().toString(), email
-						.getText().toString(), pass.getText().toString(), -1,
+						.getText().toString(), pass.getText().toString(), null, null,
 						getApplicationContext());
 				user.register();
 				// db.insertUser(email.getText().toString(), partyName.getText()
