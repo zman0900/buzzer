@@ -78,6 +78,7 @@
                 <category android:name="com.cse694" />
             </intent-filter>
         </receiver>
+        <activity android:name="UserAcceptsSeat"></activity>
     </application>
 
 </manifest>

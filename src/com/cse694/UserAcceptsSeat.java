@@ -21,8 +21,8 @@ public class UserAcceptsSeat extends Activity implements OnClickListener {
 		
 		View btnAccept = (Button)findViewById(R.id.acceptSeatBtn);
 		btnAccept.setOnClickListener(this);
-		View btnDeclinel = (Button)findViewById(R.id.declineSeatBtn);
-        btnDeclinel.setOnClickListener(this);
+		View btnDecline = (Button)findViewById(R.id.declineSeatBtn);
+        btnDecline.setOnClickListener(this);
 		currentUser = User.getCurrentUser(this);
 		int restId = currentUser.getCheckedInAtId();
 		rest = Restaurant.getRestaurantById(this, restId);
