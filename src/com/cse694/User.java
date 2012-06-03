@@ -45,7 +45,6 @@ public class User {
 		String password = settings.getString("password", "You Fail!");
 		Integer checkedInAtId = settings.getInt("checkedInAt", -1);
 		Integer checkinId = settings.getInt("checkinId", -1);
-		Log.d("buzzer", "In getCurrentUser, checkinId = " + checkinId);
 		return new User(party, email, password, checkedInAtId, checkinId, context);
 	}
 
