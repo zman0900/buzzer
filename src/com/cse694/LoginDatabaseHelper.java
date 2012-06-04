@@ -32,14 +32,18 @@ public class LoginDatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	public void insertUser(String email, String partyName, String password) {
+	public boolean insertUser(String email, String partyName, String password) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(COL_EMAIL, email);
 		cv.put(COL_PNAME, partyName);
 		cv.put(COL_PASS, password);
-		db.insert(TABLE_NAME, null, cv);
+		boolean result = true;
+		if (db.insert(TABLE_NAME, null, cv) < 0) {
+			result = false;
+		}
 		db.close();
+		return result;
 	}
 
 	public Boolean checkUser(String email, String password) {

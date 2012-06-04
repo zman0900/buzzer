@@ -33,8 +33,7 @@ public class User {
 	}
 
 	public boolean register() {
-		db.insertUser(email, partyName, password);
-		return true;
+		return db.insertUser(email, partyName, password);
 	}
 
 	public static User getCurrentUser(Context context) {

@@ -60,8 +60,6 @@ public class UserRegisters extends Activity implements OnClickListener {
 	}
 
 	public void register() {
-		// LoginDatabaseHelper db = new LoginDatabaseHelper(
-		// getApplicationContext());
 		EditText email = (EditText) findViewById(R.id.registerEmail);
 		EditText partyName = (EditText) findViewById(R.id.registerPartyName);
 		EditText pass = (EditText) findViewById(R.id.registerPassword);
@@ -71,17 +69,23 @@ public class UserRegisters extends Activity implements OnClickListener {
 			// Passwords aren't equal
 			Toast.makeText(this, "Passwords don't match!", Toast.LENGTH_SHORT)
 					.show();
+		} else if (pass.getText().length() < 4) {
+			// Password too short
+			Toast.makeText(this, "Password need to be 4 or more characters",
+					Toast.LENGTH_SHORT).show();
 		} else {
-			if (email.getText().length() > 6
+			if (email.getText().length() >= 6
 					&& partyName.getText().length() > 2
-					&& pass.getText().length() > 4) {
+					&& pass.getText().length() >= 4) {
 				User user = new User(partyName.getText().toString(), email
-						.getText().toString(), pass.getText().toString(), null, null,
-						getApplicationContext());
-				user.register();
-				// db.insertUser(email.getText().toString(), partyName.getText()
-				// .toString(), pass.getText().toString());
-				finish();
+						.getText().toString(), pass.getText().toString(), null,
+						null, this);
+				if (!user.register()) {
+					Toast.makeText(this, "Email is already registered.",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					finish();
+				}
 			} else {
 				// Fields not filled or too short
 				Toast.makeText(this, "Please fill in all fields!",
