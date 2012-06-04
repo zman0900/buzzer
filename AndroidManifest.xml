@@ -27,9 +27,8 @@
             android:name=".UserChoosesRestaurant"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.cse694.MapActivity" />
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
@@ -86,6 +85,12 @@
             android:name="UserAcceptsSeat"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="BuzzMeSplashScreen" android:screenOrientation="portrait" android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 
