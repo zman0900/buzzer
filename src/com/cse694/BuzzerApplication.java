@@ -9,10 +9,14 @@ import android.preference.PreferenceManager;
  * it's the shared preferences
  */
 public class BuzzerApplication extends Application {
-	
+
 	private SharedPreferences prefs;
+	/**
+	 * Used as a global variable so the app knows which version of the checkIn
+	 * screen to display.
+	 */
 	public static boolean userSeatReady = false;
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -23,23 +27,25 @@ public class BuzzerApplication extends Application {
 	/**
 	 * @return regId or null
 	 * 
-	 * This function returns the regId string if it's present, null if not
+	 *         This function returns the regId string if it's present, null if
+	 *         not
 	 */
 	public String getRegId() {
 		return prefs.getString("regId", null);
 	}
 
 	/**
-	 * @param regId - null or a String representing the registration id
+	 * @param regId
+	 *            - null or a String representing the registration id
 	 * 
-	 * This function can set or clear the regId preference. If null is received 
-	 * then the preference is cleared, or else is it set
+	 *            This function can set or clear the regId preference. If null
+	 *            is received then the preference is cleared, or else is it set
 	 */
 	public void setRegId(String regId) {
 		SharedPreferences.Editor editor = prefs.edit();
 		if (regId == null)
 			editor.remove("regId");
-		else 
+		else
 			editor.putString("regId", regId);
 		editor.commit();
 	}
