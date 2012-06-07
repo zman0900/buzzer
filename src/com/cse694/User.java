@@ -20,6 +20,46 @@ public class User {
 	private Integer checkinId;
 	private static LoginDatabaseHelper db;
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPartyName() {
+		return partyName;
+	}
+
+	public void setPartyName(String partyName) {
+		this.partyName = partyName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getCheckedInAtId() {
+		return checkedInAtId;
+	}
+
+	public void setCheckedInAtId(Integer checkedInAtId) {
+		this.checkedInAtId = checkedInAtId;
+	}
+
+	public Integer getCheckinId() {
+		return checkinId;
+	}
+
+	public void setCheckinId(Integer checkinId) {
+		this.checkinId = checkinId;
+	}
+
 	public User(String partyName, String email, String password,
 			Integer checkedInAtId, Integer checkinId, Context context) {
 		if (db == null) {
@@ -181,45 +221,5 @@ public class User {
 			// Do something else if rejecting
 		}
 		return ans;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPartyName() {
-		return partyName;
-	}
-
-	public void setPartyName(String partyName) {
-		this.partyName = partyName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getCheckedInAtId() {
-		return checkedInAtId;
-	}
-
-	public void setCheckedInAtId(Integer checkedInAtId) {
-		this.checkedInAtId = checkedInAtId;
-	}
-
-	public Integer getCheckinId() {
-		return checkinId;
-	}
-
-	public void setCheckinId(Integer checkinId) {
-		this.checkinId = checkinId;
 	}
 }
